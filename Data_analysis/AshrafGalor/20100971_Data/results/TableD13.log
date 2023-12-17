@@ -1,0 +1,384 @@
+---------------------------------------------------------------------------------------------------------------------------------
+       log:  C:\Research\AshrafGalor\paper\genetic\Final\empirics\results\TableD13.log
+  log type:  text
+ opened on:  28 Mar 2012, 15:52:04
+
+. use "data\country.dta", clear ;
+
+. /* -------- */
+> /* COLUMN 1 */
+> /* -------- */
+> 
+> /* STANDARDIZED BETAS -- PRINTED IN TEX/TXT FILES */
+> center ln_pd1500 adiv adiv_sqr ln_yst ln_arable ln_abslat ln_suitavg if cleanlim == 1, prefix(z_) standardize ;
+
+. reg z_ln_pd1500 z_adiv z_adiv_sqr z_ln_yst z_ln_arable z_ln_abslat z_ln_suitavg if cleanlim == 1, robust ;
+
+Linear regression                                      Number of obs =      21
+                                                       F(  6,    14) =   61.14
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.8938
+                                                       Root MSE      =  .38944
+
+------------------------------------------------------------------------------
+             |               Robust
+ z_ln_pd1500 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_adiv |   7.203287   2.357449     3.06   0.009     2.147061    12.25951
+  z_adiv_sqr |  -6.912993   2.408799    -2.87   0.012    -12.07935   -1.746633
+    z_ln_yst |   .3723511    .114481     3.25   0.006     .1268139    .6178884
+ z_ln_arable |   .3434404    .109989     3.12   0.007     .1075375    .5793434
+ z_ln_abslat |  -.1089663   .0868986    -1.25   0.230    -.2953453    .0774128
+z_ln_suitavg |   .2912254   .1501496     1.94   0.073    -.0308135    .6132644
+       _cons |   2.08e-06   .0849842     0.00   1.000    -.1822708     .182275
+------------------------------------------------------------------------------
+
+. outreg2 using "results\tableD13", replace tex nose nocon 
+>         sortvar(z_adiv z_adiv_sqr z_pdiv z_pdiv_sqr z_pdiv_aa z_pdiv_aa_sqr z_ln_yst z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_s
+> uitavg) 
+>         noaster bdec(3) tdec(3) rdec(3) ;
+results\tableD13.tex
+dir : seeout
+
+. drop z_* ;
+
+. /* PARTIAL R2 COEFFICIENTS -- PRINTED IN LOG FILE */
+> pcorr2 ln_pd1500 adiv adiv_sqr ln_yst ln_arable ln_abslat ln_suitavg if cleanlim == 1 ;
+
+(obs=21)
+
+Partial and Semipartial correlations of ln_pd1500 with
+
+    Variable |     Partial      SemiP    Partial^2     SemiP^2       Sig.
+-------------+------------------------------------------------------------
+        adiv |      0.5668      0.2242      0.3213      0.0502       0.022
+    adiv_sqr |     -0.5464     -0.2126      0.2986      0.0452       0.029
+      ln_yst |      0.5882      0.2370      0.3460      0.0562       0.017
+   ln_arable |      0.5364      0.2071      0.2877      0.0429       0.032
+   ln_abslat |     -0.2536     -0.0854      0.0643      0.0073       0.343
+  ln_suitavg |      0.5683      0.2251      0.3230      0.0507       0.022
+
+. /* -------- */
+> /* COLUMN 2 */
+> /* -------- */
+> 
+> /* STANDARDIZED BETAS -- PRINTED IN TEX/TXT FILES */
+> center ln_pd1500 adiv adiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe americas if cleanlim == 1, prefix(z_) standa
+> rdize ;
+
+. reg z_ln_pd1500 z_adiv z_adiv_sqr z_ln_yst z_ln_arable z_ln_abslat z_ln_suitavg z_africa z_europe z_americas if cleanlim == 1, 
+> robust ;
+
+Linear regression                                      Number of obs =      21
+                                                       F(  9,    11) =   65.40
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.9032
+                                                       Root MSE      =  .41944
+
+------------------------------------------------------------------------------
+             |               Robust
+ z_ln_pd1500 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_adiv |   6.512283   3.119697     2.09   0.061    -.3541236    13.37869
+  z_adiv_sqr |  -6.250627   3.449394    -1.81   0.097    -13.84269    1.341437
+    z_ln_yst |   .3482143    .201833     1.73   0.112    -.0960171    .7924458
+ z_ln_arable |   .3625152   .1742569     2.08   0.062    -.0210217     .746052
+ z_ln_abslat |  -.0862639   .1164996    -0.74   0.475    -.3426778    .1701499
+z_ln_suitavg |   .2992586   .1671277     1.79   0.101    -.0685869    .6671041
+    z_africa |  -.0711254   .3230719    -0.22   0.830    -.7822018    .6399511
+    z_europe |  -.1141457   .1525375    -0.75   0.470    -.4498784     .221587
+  z_americas |  -.0915061   .2569843    -0.36   0.729    -.6571246    .4741125
+       _cons |   1.86e-06   .0915299     0.00   1.000    -.2014542    .2014579
+------------------------------------------------------------------------------
+
+. outreg2 using "results\tableD13", tex nose nocon 
+>         drop(z_africa z_europe z_americas) 
+>         sortvar(z_adiv z_adiv_sqr z_pdiv z_pdiv_sqr z_pdiv_aa z_pdiv_aa_sqr z_ln_yst z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_s
+> uitavg) 
+>         noaster bdec(3) tdec(3) rdec(3) ;
+results\tableD13.tex
+dir : seeout
+
+. drop z_* ;
+
+. /* PARTIAL R2 COEFFICIENTS -- PRINTED IN LOG FILE */
+> pcorr2 ln_pd1500 adiv adiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe americas if cleanlim == 1 ;
+
+(obs=21)
+
+Partial and Semipartial correlations of ln_pd1500 with
+
+    Variable |     Partial      SemiP    Partial^2     SemiP^2       Sig.
+-------------+------------------------------------------------------------
+        adiv |      0.4604      0.1613      0.2119      0.0260       0.113
+    adiv_sqr |     -0.4222     -0.1449      0.1782      0.0210       0.151
+      ln_yst |      0.4865      0.1732      0.2367      0.0300       0.092
+   ln_arable |      0.4937      0.1766      0.2438      0.0312       0.086
+   ln_abslat |     -0.1802     -0.0570      0.0325      0.0032       0.556
+  ln_suitavg |      0.5644      0.2127      0.3185      0.0452       0.045
+      africa |     -0.0569     -0.0177      0.0032      0.0003       0.853
+      europe |     -0.2604     -0.0839      0.0678      0.0070       0.390
+    americas |     -0.0972     -0.0304      0.0094      0.0009       0.752
+
+. /* -------- */
+> /* COLUMN 3 */
+> /* -------- */
+> 
+> /* STANDARDIZED BETAS -- PRINTED IN TEX/TXT FILES */
+> center ln_pd1500 pdiv pdiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe asia americas if cleanpd1500 == 1, prefix(z_
+> ) standardize ;
+
+. reg z_ln_pd1500 z_pdiv z_pdiv_sqr z_ln_yst z_ln_arable z_ln_abslat z_ln_suitavg z_africa z_europe z_asia z_americas if cleanpd1
+> 500 == 1, robust ;
+
+Linear regression                                      Number of obs =     145
+                                                       F( 10,   134) =   28.60
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.6895
+                                                       Root MSE      =  .57763
+
+------------------------------------------------------------------------------
+             |               Robust
+ z_ln_pd1500 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_pdiv |   7.007575    2.74844     2.55   0.012     1.571641    12.44351
+  z_pdiv_sqr |  -6.936459   2.612106    -2.66   0.009    -12.10275   -1.770168
+    z_ln_yst |   .4899195   .0890443     5.50   0.000     .3138054    .6660336
+ z_ln_arable |   .3149842   .0777681     4.05   0.000     .1611724    .4687959
+ z_ln_abslat |  -.2571855   .0731243    -3.52   0.001    -.4018126   -.1125585
+z_ln_suitavg |   .2245622   .0818544     2.74   0.007     .0626685    .3864559
+    z_africa |   .2134818   .2369871     0.90   0.369    -.2552374     .682201
+    z_europe |   .2590876   .2324234     1.11   0.267    -.2006054    .7187806
+      z_asia |   .0827473   .2420652     0.34   0.733    -.3960154      .56151
+  z_americas |  -.0600473   .1874441    -0.32   0.749     -.430779    .3106844
+       _cons |  -1.78e-06   .0479694    -0.00   1.000     -.094877    .0948734
+------------------------------------------------------------------------------
+
+. outreg2 using "results\tableD13", tex nose nocon 
+>         drop(z_africa z_europe z_asia z_americas) 
+>         sortvar(z_adiv z_adiv_sqr z_pdiv z_pdiv_sqr z_pdiv_aa z_pdiv_aa_sqr z_ln_yst z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_s
+> uitavg) 
+>         noaster bdec(3) tdec(3) rdec(3) ;
+results\tableD13.tex
+dir : seeout
+
+. drop z_* ;
+
+. /* PARTIAL R2 COEFFICIENTS -- PRINTED IN LOG FILE */
+> pcorr2 ln_pd1500 pdiv pdiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe asia americas if cleanpd1500 == 1 ;
+
+(obs=145)
+
+Partial and Semipartial correlations of ln_pd1500 with
+
+    Variable |     Partial      SemiP    Partial^2     SemiP^2       Sig.
+-------------+------------------------------------------------------------
+        pdiv |      0.2679      0.1549      0.0718      0.0240       0.002
+    pdiv_sqr |     -0.2716     -0.1572      0.0737      0.0247       0.001
+      ln_yst |      0.4525      0.2827      0.2047      0.0799       0.000
+   ln_arable |      0.3318      0.1960      0.1101      0.0384       0.000
+   ln_abslat |     -0.3173     -0.1865      0.1007      0.0348       0.000
+  ln_suitavg |      0.2442      0.1403      0.0596      0.0197       0.004
+      africa |      0.0837      0.0468      0.0070      0.0022       0.332
+      europe |      0.1051      0.0589      0.0110      0.0035       0.223
+        asia |      0.0331      0.0184      0.0011      0.0003       0.702
+    americas |     -0.0326     -0.0182      0.0011      0.0003       0.706
+
+. /* -------- */
+> /* COLUMN 4 */
+> /* -------- */
+> 
+> /* STANDARDIZED BETAS -- PRINTED IN TEX/TXT FILES */
+> center ln_pd1000 pdiv pdiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe asia americas if cleanpd1000 == 1, prefix(z_
+> ) standardize ;
+
+. reg z_ln_pd1000 z_pdiv z_pdiv_sqr z_ln_yst z_ln_arable z_ln_abslat z_ln_suitavg z_africa z_europe z_asia z_americas if cleanpd1
+> 000 == 1, robust ;
+
+Linear regression                                      Number of obs =     140
+                                                       F( 10,   129) =   52.43
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.6181
+                                                       Root MSE      =   .6415
+
+------------------------------------------------------------------------------
+             |               Robust
+ z_ln_pd1000 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_pdiv |   6.954693   3.270203     2.13   0.035     .4845165    13.42487
+  z_pdiv_sqr |  -6.837598   3.104847    -2.20   0.029    -12.98061   -.6945823
+    z_ln_yst |   .6527508   .1000087     6.53   0.000     .4548811    .8506205
+ z_ln_arable |   .3036706   .0886702     3.42   0.001     .1282345    .4791068
+ z_ln_abslat |  -.2359405   .0811002    -2.91   0.004    -.3963992   -.0754819
+z_ln_suitavg |   .1734184   .0926508     1.87   0.064    -.0098934    .3567302
+    z_africa |   .1002862   .2050953     0.49   0.626       -.3055    .5060723
+    z_europe |   .0253684   .2245345     0.11   0.910    -.4188785    .4696154
+      z_asia |  -.0888797   .2339155    -0.38   0.705    -.5516872    .3739278
+  z_americas |  -.0211126   .1765957    -0.12   0.905    -.3705116    .3282864
+       _cons |  -2.36e-07   .0542163    -0.00   1.000    -.1072686    .1072681
+------------------------------------------------------------------------------
+
+. outreg2 using "results\tableD13", tex nose nocon 
+>         drop(z_africa z_europe z_asia z_americas) 
+>         sortvar(z_adiv z_adiv_sqr z_pdiv z_pdiv_sqr z_pdiv_aa z_pdiv_aa_sqr z_ln_yst z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_s
+> uitavg) 
+>         noaster bdec(3) tdec(3) rdec(3) ;
+results\tableD13.tex
+dir : seeout
+
+. drop z_* ;
+
+. /* PARTIAL R2 COEFFICIENTS -- PRINTED IN LOG FILE */
+> pcorr2 ln_pd1000 pdiv pdiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe asia americas if cleanpd1000 == 1 ;
+
+(obs=140)
+
+Partial and Semipartial correlations of ln_pd1000 with
+
+    Variable |     Partial      SemiP    Partial^2     SemiP^2       Sig.
+-------------+------------------------------------------------------------
+        pdiv |      0.2375      0.1511      0.0564      0.0228       0.006
+    pdiv_sqr |     -0.2402     -0.1529      0.0577      0.0234       0.006
+      ln_yst |      0.5254      0.3816      0.2760      0.1456       0.000
+   ln_arable |      0.2869      0.1851      0.0823      0.0343       0.001
+   ln_abslat |     -0.2678     -0.1718      0.0717      0.0295       0.002
+  ln_suitavg |      0.1684      0.1056      0.0284      0.0112       0.054
+      africa |      0.0327      0.0202      0.0011      0.0004       0.711
+      europe |      0.0087      0.0053      0.0001      0.0000       0.922
+        asia |     -0.0295     -0.0182      0.0009      0.0003       0.738
+    americas |     -0.0091     -0.0056      0.0001      0.0000       0.918
+
+. /* -------- */
+> /* COLUMN 5 */
+> /* -------- */
+> 
+> /* STANDARDIZED BETAS -- PRINTED IN TEX/TXT FILES */
+> center ln_pd1 pdiv pdiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe asia americas if cleanpd1 == 1, prefix(z_) stan
+> dardize ;
+
+. reg z_ln_pd1 z_pdiv z_pdiv_sqr z_ln_yst z_ln_arable z_ln_abslat z_ln_suitavg z_africa z_europe z_asia z_americas if cleanpd1 ==
+>  1, robust ;
+
+Linear regression                                      Number of obs =     126
+                                                       F( 10,   115) =   17.11
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.6150
+                                                       Root MSE      =  .64692
+
+------------------------------------------------------------------------------
+             |               Robust
+    z_ln_pd1 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      z_pdiv |   7.540043    3.66337     2.06   0.042      .283613    14.79647
+  z_pdiv_sqr |   -7.36396   3.483575    -2.11   0.037    -14.26425   -.4636692
+    z_ln_yst |   .7645346   .1281821     5.96   0.000     .5106305    1.018439
+ z_ln_arable |   .2555871   .0887464     2.88   0.005     .0797975    .4313767
+ z_ln_abslat |  -.0693378   .0763421    -0.91   0.366    -.2205569    .0818813
+z_ln_suitavg |   .1625527   .0907722     1.79   0.076    -.0172496    .3423549
+    z_africa |   -.252157   .2265657    -1.11   0.268    -.7009401    .1966261
+    z_europe |   -.353663   .2676484    -1.32   0.189     -.883823    .1764969
+      z_asia |  -.5064777   .2634188    -1.92   0.057     -1.02826    .0153044
+  z_americas |  -.1652608   .2227464    -0.74   0.460    -.6064785    .2759569
+       _cons |  -6.27e-06    .057632    -0.00   1.000    -.1141642    .1141517
+------------------------------------------------------------------------------
+
+. outreg2 using "results\tableD13", tex nose nocon 
+>         drop(z_africa z_europe z_asia z_americas) 
+>         sortvar(z_adiv z_adiv_sqr z_pdiv z_pdiv_sqr z_pdiv_aa z_pdiv_aa_sqr z_ln_yst z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_s
+> uitavg) 
+>         noaster bdec(3) tdec(3) rdec(3) ;
+results\tableD13.tex
+dir : seeout
+
+. drop z_* ;
+
+. /* PARTIAL R2 COEFFICIENTS -- PRINTED IN LOG FILE */
+> pcorr2 ln_pd1 pdiv pdiv_sqr ln_yst ln_arable ln_abslat ln_suitavg africa europe asia americas if cleanpd1 == 1 ;
+
+(obs=126)
+
+Partial and Semipartial correlations of ln_pd1 with
+
+    Variable |     Partial      SemiP    Partial^2     SemiP^2       Sig.
+-------------+------------------------------------------------------------
+        pdiv |      0.2494      0.1598      0.0622      0.0255       0.007
+    pdiv_sqr |     -0.2508     -0.1607      0.0629      0.0258       0.006
+      ln_yst |      0.5811      0.4430      0.3376      0.1963       0.000
+   ln_arable |      0.2497      0.1600      0.0623      0.0256       0.007
+   ln_abslat |     -0.0787     -0.0490      0.0062      0.0024       0.399
+  ln_suitavg |      0.1682      0.1059      0.0283      0.0112       0.070
+      africa |     -0.0864     -0.0538      0.0075      0.0029       0.354
+      europe |     -0.1177     -0.0736      0.0139      0.0054       0.206
+        asia |     -0.1675     -0.1054      0.0281      0.0111       0.071
+    americas |     -0.0711     -0.0442      0.0051      0.0020       0.446
+
+. /* -------- */
+> /* COLUMN 6 */
+> /* -------- */
+> 
+> /* STANDARDIZED BETAS -- PRINTED IN TEX/TXT FILES */
+> center ln_gdppc2000 pdiv_aa pdiv_aa_sqr ln_yst_aa ln_arable ln_abslat ln_suitavg africa europe asia americas if cleancomp == 1,
+>  prefix(z_) standardize ;
+
+. reg z_ln_gdppc2000 z_pdiv_aa z_pdiv_aa_sqr z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_suitavg z_africa z_europe z_asia z_americas
+>  if cleancomp == 1, robust ;
+
+Linear regression                                      Number of obs =     143
+                                                       F( 10,   132) =   29.00
+                                                       Prob > F      =  0.0000
+                                                       R-squared     =  0.5659
+                                                       Root MSE      =  .68336
+
+------------------------------------------------------------------------------
+             |               Robust
+z_ln_gd~2000 |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   z_pdiv_aa |   5.508859   1.842439     2.99   0.003     1.864332    9.153387
+z_pdiv_aa_~r |  -5.484949   1.880882    -2.92   0.004     -9.20552   -1.764378
+ z_ln_yst_aa |   .0242269   .0990614     0.24   0.807    -.1717264    .2201802
+ z_ln_arable |  -.1231347   .1055869    -1.17   0.246     -.331996    .0857265
+ z_ln_abslat |    .135171   .0943726     1.43   0.154    -.0515074    .3218494
+z_ln_suitavg |  -.1996298   .1119873    -1.78   0.077    -.4211517    .0218921
+    z_africa |  -.7455013   .1814508    -4.11   0.000    -1.104429   -.3865737
+    z_europe |   .0050577   .1390159     0.04   0.971    -.2699295    .2800449
+      z_asia |   -.481809   .1484606    -3.25   0.001    -.7754787   -.1881392
+  z_americas |  -.1460641   .1055707    -1.38   0.169    -.3548935    .0627652
+       _cons |   1.17e-07   .0571458     0.00   1.000    -.1130398    .1130401
+------------------------------------------------------------------------------
+
+. outreg2 using "results\tableD13", tex nose nocon 
+>         drop(z_africa z_europe z_asia z_americas) 
+>         sortvar(z_adiv z_adiv_sqr z_pdiv z_pdiv_sqr z_pdiv_aa z_pdiv_aa_sqr z_ln_yst z_ln_yst_aa z_ln_arable z_ln_abslat z_ln_s
+> uitavg) 
+>         noaster bdec(3) tdec(3) rdec(3) ;
+results\tableD13.tex
+dir : seeout
+
+. drop z_* ;
+
+. /* PARTIAL R2 COEFFICIENTS -- PRINTED IN LOG FILE */
+> pcorr2 ln_gdppc2000 pdiv_aa pdiv_aa_sqr ln_yst_aa ln_arable ln_abslat ln_suitavg africa europe asia americas if cleancomp == 1 
+> ;
+
+(obs=143)
+
+Partial and Semipartial correlations of ln_gdppc2000 with
+
+    Variable |     Partial      SemiP    Partial^2     SemiP^2       Sig.
+-------------+------------------------------------------------------------
+     pdiv_aa |      0.1831      0.1227      0.0335      0.0151       0.034
+ pdiv_aa_sqr |     -0.1818     -0.1218      0.0331      0.0148       0.035
+   ln_yst_aa |      0.0199      0.0131      0.0004      0.0002       0.820
+   ln_arable |     -0.1101     -0.0730      0.0121      0.0053       0.206
+   ln_abslat |      0.1455      0.0969      0.0212      0.0094       0.093
+  ln_suitavg |     -0.1759     -0.1177      0.0309      0.0139       0.042
+      africa |     -0.2735     -0.1874      0.0748      0.0351       0.001
+      europe |      0.0023      0.0015      0.0000      0.0000       0.979
+        asia |     -0.2121     -0.1430      0.0450      0.0204       0.014
+    americas |     -0.0791     -0.0523      0.0063      0.0027       0.363
+
+. log close ;
+       log:  C:\Research\AshrafGalor\paper\genetic\Final\empirics\results\TableD13.log
+  log type:  text
+ closed on:  28 Mar 2012, 15:52:05
+---------------------------------------------------------------------------------------------------------------------------------

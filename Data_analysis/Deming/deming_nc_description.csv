@@ -1,0 +1,38 @@
+NC,type,year,tranformation
+testz2002,Past Outcome,2002,None
+math_1998_imp,Math,1998,None
+math_1998_miss,Math,1998,Missing indicator
+math_1998_imp_sq,Math,1998,Squared
+math_1998_imp_cub,Math,1998,Cubic
+read_1998_imp,Read,1998,None
+read_1998_miss,Read,1998,Missing indicator
+read_1998_imp_sq,Read,1998,Squared
+read_1998_imp_cub,Read,1998,Cubic
+math_1999_imp,Math,1999,None
+math_1999_miss,Math,1999,Missing indicator
+math_1999_imp_sq,Math,1999,Squared
+math_1999_imp_cub,Math,1999,Cubic
+read_1999_imp,Read,1999,None
+read_1999_miss,Read,1999,Missing indicator
+read_1999_imp_sq,Read,1999,Squared
+read_1999_imp_cub,Read,1999,Cubic
+math_2000_imp,Math,2000,None
+math_2000_miss,Math,2000,Missing indicator
+math_2000_imp_sq,Math,2000,Squared
+math_2000_imp_cub,Math,2000,Cubic
+read_2000_imp,Read,2000,None
+read_2000_miss,Read,2000,Missing indicator
+read_2000_imp_sq,Read,2000,Squared
+read_2000_imp_cub,Read,2000,Cubic
+math_2001_imp,Math,2001,None
+math_2001_miss,Math,2001,Missing indicator
+math_2001_imp_sq,Math,2001,Squared
+math_2001_imp_cub,Math,2001,Cubic
+read_2001_imp,Read,2001,None
+read_2001_miss,Read,2001,Missing indicator
+read_2001_imp_sq,Read,2001,Squared
+read_2001_imp_cub,Read,2001,Cubic
+ch1_mod2mix_all_test,VA,VA1,None
+ch2_mod2mix_all_test,VA,VA2,None
+ch3_mod2mix_all_test,VA,VA3,None
+hm_mod2mix_all_test,VA,VA_hm,None

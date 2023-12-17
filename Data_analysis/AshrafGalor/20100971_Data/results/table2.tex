@@ -1,0 +1,37 @@
+\documentclass[]{article}
+\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+\begin{document}
+\begin{tabular}{lcccccc} \hline
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+VARIABLES & ln\_pd1500 & ln\_pd1500 & ln\_pd1500 & ln\_pd1500 & ln\_pd1500 & ln\_pd1500 \\ \hline
+ &  &  &  &  &  &  \\
+adiv &  & 255.219** &  & 361.420** & 285.190*** & 243.110*** \\
+ &  & (100.586) &  & (121.429) & (88.064) & (63.880) \\
+adiv\_sqr &  & -209.808** &  & -268.514*** & -206.576*** & -179.581*** \\
+ &  & (73.814) &  & (87.342) & (66.852) & (52.038) \\
+mdist\_hgdp & 0.505*** & 0.070 &  &  &  &  \\
+ & (0.148) & (0.184) &  &  &  &  \\
+mdist\_hgdp\_sqr & -0.023*** & -0.014 &  &  &  &  \\
+ & (0.006) & (0.009) &  &  &  &  \\
+hmicost\_hgdp &  &  & 0.353** & 0.051 &  &  \\
+ &  &  & (0.127) & (0.154) &  &  \\
+hmicost\_hgdp\_sqr &  &  & -0.012*** & -0.003 &  &  \\
+ &  &  & (0.004) & (0.006) &  &  \\
+ln\_yst &  &  &  &  & 1.014*** & 1.119** \\
+ &  &  &  &  & (0.361) & (0.487) \\
+ln\_arable &  &  &  &  & 0.608*** & 0.634*** \\
+ &  &  &  &  & (0.188) & (0.211) \\
+ln\_abslat &  &  &  &  & -0.209* & -0.133 \\
+ &  &  &  &  & (0.121) & (0.127) \\
+ln\_suitavg &  &  &  &  & 0.494** & 0.549** \\
+ &  &  &  &  & (0.233) & (0.253) \\
+ &  &  &  &  &  &  \\
+Observations & 21 & 21 & 18 & 18 & 21 & 21 \\
+R-squared & 0.338 & 0.462 & 0.295 & 0.431 &  &  \\
+P-val. for joint significance of adiv and adiv\_sqr &  & 0.0233 &  & 0.0266 &  &  \\
+P-val. for joint significance of mdist\_hgdp and mdist\_hgdp\_sqr &  & 0.235 &  &  &  &  \\
+ P-val. for joint significance of hmicost\_hgdp and hmicost\_hgdp\_sqr &  &  &  & 0.905 &  &  \\ \hline
+\multicolumn{7}{c}{ Robust standard errors in parentheses} \\
+\multicolumn{7}{c}{ *** p$<$0.01, ** p$<$0.05, * p$<$0.1} \\
+\end{tabular}
+\end{document}
