@@ -367,3 +367,37 @@ nc_names_dt[,category := sapply(nc_names_dt$NC,function(x){str_to_categ(x)})]
 
 
 
+# Ramsey RESET ------------------------------------------------------------
+
+
+# Ramsey's test
+
+library(lmtest)
+
+NC.names <- names(NCs)
+IV.name <- "instrument2000"
+outcome.name <- "outcome2000"
+cntrl.names <- names(control6)
+  
+# Y ~ NCO + C
+ADH.formula.outcome.on.NC.C <- as.formula(paste0(outcome.name," ~ ",
+                                                 paste0(c(cntrl.names, NC.names),collapse = " + ")))
+basic.lm <- lm(formula = ADH.formula.outcome.on.NC.C, data = china_1990, weights = china_weights)
+ramsey.test <- resettest(basic.lm, type = "fitted", data = china_1990)
+ramsey.test
+
+# Y ~ IV + C
+re.formula.no.nco <-  as.formula(paste0(outcome.name," ~ ",
+                                        paste0(c(IV.name,cntrl.names),collapse = " + ")))
+basic.lm.no.nci <- lm(formula = re.formula.no.nco, data = china_1990, weights = china_weights)
+ramsey.test.no.nci <- resettest(basic.lm.no.nci, type = "fitted", data = china_1990)
+ramsey.test.no.nci
+
+# IV ~ C
+
+re.formula.iv.on.c <- as.formula(paste0(IV.name, "~",
+                                       paste0(cntrl.names,collapse = " + ")))
+basic.lm.iv.on.c <- lm(formula = re.formula.iv.on.c, data = china_1990, weights = china_weights)
+ramsey.test.iv.on.c <- resettest(basic.lm.iv.on.c, type = "fitted", data = china_weights)
+ramsey.test.iv.on.c
+

@@ -17,17 +17,15 @@ source("Aux_functions/Estimation_Functions.R")
 
 # Formulas for replication analysis ---------------------------------------
 
-get_formula_for_table_1_lottery <- function(outcome, # the name of the outcome variable
-                                            col_factors, # the name of the outcome variable
-                                            fixed, # the name of the fixed effects groups
-                                            endogen, # the name of the endogen treatment variable
-                                            iv # the name of the instrumental variable
-                                            ){
-  return(as.formula(paste(outcome, "~ 1+ ", paste(col_factors, collapse=" + "),
+get_formula_for_2sls <- function(outcome, # the name of the outcome variable
+                                  col_factors, # the name of the outcome variable
+                                  fixed, # the name of the fixed effects groups
+                                  endogen, # the name of the endogen treatment variable
+                                  iv # the name of the instrumental variable
+                                  ){
+  return(as.formula(paste(outcome, "~", paste(col_factors, collapse=" + "),
                           "|", fixed,
-                          "| (", endogen, "~", paste(c(iv, col_factors), collapse=" + "), ")",
-                          "|", fixed))
-  )
+                          "| ", endogen, "~", paste(c(iv, col_factors), collapse=" + "))))
 }
 
 get_formula_for_iv_by_controls <- function(iv, # the name of the instrumental variable
@@ -59,7 +57,8 @@ deming_data <- function(data,
   # the controls as specified in the article
   
   relevant_cols <- c("math_2002_imp", "read_2002_imp", "math_2002_imp_sq", "math_2002_imp_cub",
-                     "read_2002_imp_sq", "read_2002_imp_cub", "math_2002_miss", "read_2002_miss")
+                     "read_2002_imp_sq", "read_2002_imp_cub", "math_2002_miss", "read_2002_miss",
+                     "enrolled")
   
   
   # relevant_cols_for_analysis <- c(relevant_cols,"testz1998","testz1999","testz2000","testz2001","testz2002")

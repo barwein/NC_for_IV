@@ -18,10 +18,13 @@ library(data.table)
 # Get data ready
 school_data = deming_data(curr_cms,c("lottery", "lott_VA","new_lott_VA"))
 
+which.is.enrolled <- which(names(school_data) == "enrolled")
+
+
 # With VA
 
 set.seed(156)
-school_analysis_with_VA <- run_school_nciv(cms_data = school_data,
+school_analysis_with_VA <- run_school_nciv(cms_data = school_data[,-which.is.enrolled],
                                                ivs= c("lottery", "lott_VA","new_lott_VA"),
                                                # ivs= c("lottery", "lott_VA"),
                                                with_VA = TRUE)
@@ -180,5 +183,57 @@ for (i in seq(2)){
          width = 11,
          height = 8)
 }
+
+
+
+
+# 2SLS estimates ----------------------------------------------------------
+
+# Compute 2SLS estimate with ``lott_VA" and ``Lottery" IVs
+
+
+covariates.2sls <- c("math_2002_imp", "read_2002_imp", "math_2002_imp_sq", "math_2002_imp_cub",
+                      "read_2002_imp_sq", "read_2002_imp_cub", "math_2002_miss", "read_2002_miss",
+                     "ch1_mod2mix_all_test", "ch2_mod2mix_all_test", "ch3_mod2mix_all_test",
+                     "hm_mod2mix_all_test")
+
+
+# Lott_VA
+formula_lott_VA <- get_formula_for_2sls(outcome = "testz2003",
+                                                   col_factors = covariates.2sls,
+                                                   fixed = "lottery_FE", 
+                                                   endogen = "enrolled",
+                                                   iv = "lott_VA")
+
+OLS_lott_VA <- feols(fml = formula_lott_VA, data = school_data, vcov = "cluster")
+
+LATE_lott_VA <- OLS_lott_VA$coefficients[1]
+LATE_lott_VA.s.e. <- sqrt(OLS_lott_VA$cov.scaled[1,1])
+
+# Lottery
+formula_Lottery <- get_formula_for_2sls(outcome = "testz2003",
+                                                   col_factors = covariates.2sls,
+                                                   fixed = "lottery_FE", 
+                                                   endogen = "enrolled",
+                                                   iv = "lottery")
+
+OLS_Lottery <- feols(fml = formula_Lottery, data = school_data, vcov = "cluster")
+
+LATE_Lottery <- OLS_Lottery$coefficients[1]
+LATE_Lottery.s.e. <- sqrt(OLS_Lottery$cov.scaled[1,1])
+
+
+library(ivreg)
+formla.lott_va <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
+                         " | ", "enrolled", 
+                         " | ", "lott_VA")
+ivv.lott.va <- ivreg(formula = formla.lott_va, data = school_data)
+summary(ivv.lott.va)
+
+formla.lottery <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
+                         " | ", "enrolled", 
+                         " | ", "lottery")
+ivv.lottery <- ivreg(formula = formla.lottery, data = school_data)
+summary(ivv.lottery)
 
 
