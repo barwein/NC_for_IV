@@ -66,9 +66,10 @@ workfile_china <- workfile_china_raw  %>%
 china_1990 <- workfile_china %>%
   filter(yr == 1990) %>%
   select(-c("l_tradeusch_pw", "l_tradeotch_pw",
-            "exposure1990", "instrument1990", "exposure2000",  
+            # "exposure1990", "instrument1990", "exposure2000",  
             # "czone", "yr", "t2", "statefip", "city"), 
-            "czone", "yr", "t2", "city"), 
+            "czone", "yr", "t2", "city"),
+            # "czone", "yr",  "city"),
          -starts_with("d"), -starts_with("relchg"), -starts_with("lnchg")) #Table 3 (pg. 2137)
 
 

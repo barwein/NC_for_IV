@@ -31,7 +31,8 @@ library(stargazer)
 china_1990 <- as.data.frame(china_1990)
 n_obs <- nrow(china_1990)
 
-variables_to_remove= c("timepwt48", "instrument2000", "outcome2000","statefip")
+variables_to_remove= c("timepwt48", "instrument2000", "outcome2000","statefip",
+                       "instrument1990", "exposure1990", "exposure2000")
 
 IV <- china_1990$instrument2000
 
@@ -51,6 +52,7 @@ china_weights <- china_1990$timepwt48
 
 
 cluster.robust <- china_1990$statefip
+
 
 
 # Run regressions ---------------------------------------------------------
@@ -272,6 +274,22 @@ kable(results_lo,
       format= "latex",
       booktabs = TRUE)
 
+
+# Replicate Table 2 column 4 ----------------------------------------------
+
+replication_df <- as.data.table(workfile_china_raw_pre)[yr==1970,]
+
+
+replicate_2sls <- ivreg("d_sh_empl_mfg ~ d_tradeusch_pw_future | d_tradeotch_pw_lag_future", 
+                        data = replication_df,
+                        weights = replication_df$timepwt48)
+summary(replicate_2sls, vcov = sand)
+c_se <- sqrt(diag(vcovCL(replicate_2sls, cluster = replication_df$statefip)))[2]
+
+t_stat <- coef(replicate_2sls)[2] / c_se
+pv <- 2*pt(t_stat, df = nrow(replication_df)-2, lower.tail = F)
+pv
+
 # Corr-corr plot ----------------------------------------------------------
 
 # Get residualized IV
@@ -395,6 +413,28 @@ ramsey.test.no.nci
 
 # IV ~ C
 
+# Cntrl3
+re.formula.iv.on.c3 <- as.formula(paste0(IV.name, "~",
+                                       paste0(names(control3),collapse = " + ")))
+basic.lm.iv.on.c3 <- lm(formula = re.formula.iv.on.c3, data = china_1990, weights = china_weights)
+ramsey.test.iv.on.c3 <- resettest(basic.lm.iv.on.c3, type = "fitted", data = china_weights)
+ramsey.test.iv.on.c3
+
+# Cntrl4
+re.formula.iv.on.c4 <- as.formula(paste0(IV.name, "~",
+                                       paste0(names(control4),collapse = " + ")))
+basic.lm.iv.on.c4 <- lm(formula = re.formula.iv.on.c4, data = china_1990, weights = china_weights)
+ramsey.test.iv.on.c4 <- resettest(basic.lm.iv.on.c4, type = "fitted", data = china_weights)
+ramsey.test.iv.on.c4
+
+# Cntrl5
+re.formula.iv.on.c5 <- as.formula(paste0(IV.name, "~",
+                                       paste0(names(control5),collapse = " + ")))
+basic.lm.iv.on.c5 <- lm(formula = re.formula.iv.on.c5, data = china_1990, weights = china_weights)
+ramsey.test.iv.on.c5 <- resettest(basic.lm.iv.on.c5, type = "fitted", data = china_weights)
+ramsey.test.iv.on.c5
+
+# Cntrl6
 re.formula.iv.on.c <- as.formula(paste0(IV.name, "~",
                                        paste0(cntrl.names,collapse = " + ")))
 basic.lm.iv.on.c <- lm(formula = re.formula.iv.on.c, data = china_1990, weights = china_weights)
