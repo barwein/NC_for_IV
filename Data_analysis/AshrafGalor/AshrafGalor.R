@@ -263,3 +263,4 @@ wald.df <- length(coef(lm.all.nciv)[2:7])
 all.wald.pval <- pchisq(q = all.wald.stat, df = wald.df, lower.tail = FALSE)
 
 # Gam not possible due to small sample size
+
