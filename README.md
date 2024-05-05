@@ -17,5 +17,16 @@ R packages: data.table, sandwich, ivreg, mvtnorm, foreach, parallel, dplyr, lfe,
 Aprroximate runtime: 1 hour (for data analysis); 24 hours (for simulations)
 
 
+## Code Overview
+The code consists of two main parts:
+
+1. Data analyses.
+2. Simulations study.
+
+The data analyses, or applications, can run in a feasible runtime on a personal compute (~1 hour). The simulation study is more intensive and can take more than 24 hours to run it.
+
+To obtain all the results run the `main.R' file.
+
+
 
 
