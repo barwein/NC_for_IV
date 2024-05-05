@@ -5,11 +5,15 @@ This README file provides information on the data and code used to produce all a
 
 ## Software Requirements
 The code is written in R and was run on an RStudio server with the following specs:
+
 R version 4.2.2 
+
 Platform: xx86_64-w64-mingw32
+
 R packages: data.table, sandwich, ivreg, mvtnorm, foreach, parallel, dplyr, lfe, mgcv, caret, systemfit, sandwich, 
             aod, tidyverse, ggpubr, latex2exp, gridExtra, haven, fixest, mltools, stringr, kableExtra, lmtest,
             MASS, stargazer, ggplot2, readr
+
 Aprroximate runtime: 1 hour (for data analysis); 24 hours (for simulations)
 
 
