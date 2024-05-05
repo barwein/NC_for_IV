@@ -27,7 +27,10 @@ The data analyses, or applications, can run in a feasible runtime on a personal 
 
 To obtain all the results run the *main.R* file. The code will replicate all the output files (csv, figures, and tables). 
 
+## Data Availability  
+All data files used in the analyses are freely available from the authors, and can be obtained via the following links.
 
+1. ADH (2013) \url{https://www.openicpsr.org/openicpsr/project/112670/version/V1/view}
 
 
 
