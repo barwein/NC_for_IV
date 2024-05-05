@@ -6,7 +6,6 @@
 # Libraries ---------------------------------------------------------------
 
 
-library(randomForest)
 library(dplyr)
 library(lfe)
 library(foreach)
@@ -15,7 +14,6 @@ library(caret)
 library(systemfit)
 library(sandwich)
 library(aod)
-library(CondIndTests)
 
 source("Aux_functions/Data_Generator.R")
 
@@ -132,36 +130,6 @@ lm_nc_on_cntrls <- function(NC,
 }
 
 
-rf_nc_on_cntrls <- function(NC,
-                            cntrls,
-                            ntree){
-  #' @description residualize NC on controls using random-forest
-  #'
-  nc_names <- names(NC)
-  resid <- foreach(i=1:ncol(NC), .combine = "cbind") %dopar%
-    {
-      rf_nc <- randomForest::randomForest(x = cntrls,
-                                          y = NC[,i],
-                                          ntree = ntree)
-      nc_resid <- NC[,i] - rf_nc$predicted
-
-      results <- data.frame(nc_resid)
-      # names(results)[1] <- paste0("NC_resid_",i)
-      names(results)[1] <- nc_names[i]
-      results
-    }
-  return(resid)
-}
-
-
-
-rf_z_on_cntrls <- function(Z,
-                           cntrls,
-                           ntree){
-  #' @description residualize Z (iv) on controls using linear regression
-  rf_z <- randomForest::randomForest(x = cntrls, y = Z, ntree = ntree)
-  return(Z - rf_z$predicted)
-}
 
 
 
@@ -228,9 +196,7 @@ residualize_all <- function(Z, NC, cntrls, nc_resid ,z_resid, fixed_e_var ,ntree
     z_lm <- lm(formula = z_formula, data = data.frame(Z, cntrls), weights = wght)
     z_res <- Z - z_lm$fitted.values
   }
-  if (z_resid == "rf"){
-    z_res <- rf_z_on_cntrls(Z = Z, cntrls = cntrls, ntree = ntree)
-  }
+  
   if (z_resid == "fe"){
     z_res <- felm_Z_on_controls(Z = Z, cntrls = cntrls, fixed_e_var = fixed_e_var)
   }
@@ -240,9 +206,6 @@ residualize_all <- function(Z, NC, cntrls, nc_resid ,z_resid, fixed_e_var ,ntree
   
   if (nc_resid == "lm"){
     nc_res <- lm_nc_on_cntrls(NC = NC, cntrls = cntrls, wght = wght)
-  }
-  if (nc_resid == "rf") { 
-    nc_res <- rf_nc_on_cntrls(NC = NC,cntrls = cntrls ,ntree = ntree)
   }
   if (nc_resid == "fe") { 
     nc_res <- felm_nc_on_controls(NC = NC,cntrls = cntrls ,fixed_e_var = fixed_e_var)

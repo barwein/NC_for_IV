@@ -107,9 +107,9 @@ for (nc in NCIVs) {
 }
 
 AG.tab4.results <- AG.tab4.results[-1,]
-AG.tab4.results
 AG.tab4.results[,pval := ifelse(pval<0.01,"<0.01",round(pval,3))]
 AG.tab4.results[,method := "separate.coef"]
+AG.tab4.results
 
 # NCIV test using Wald test with robust se (robust F-test) -----------------------------------
 
@@ -214,9 +214,6 @@ AG.GAM.results[,pval := ifelse(pval<0.01,"<0.01",round(pval,3))]
 AG.GAM.results[,method := "GAM (robust se)"]
 
 
-
-
-
 # Save results ------------------------------------------------------------
 
 AG.tab4.summarized <- AG.tab4.results[,.(pval = paste0(pval, collapse = ", ")), by = c("NCIV","IV.adjusted","method")]
@@ -230,7 +227,7 @@ results.casted <- results.casted[,c(1,6,7,4,5,2,3)]
 
 results.casted$nciv.names <- c("Addis Ababa","London","Mexico","Tokyo")
 
-kable(results.casted[,c(8,seq(2,7))], format = "latex",
+kable(results.casted[,c(8,seq(2,7))], format = "simple",
       booktabs = T,
       col.names = c("",rep(c("FALSE","TRUE"),3))) %>% 
   add_header_above(c(" "=1, "IV Adj."=2,"IV Adj."=2,"IV Adj."=2)) %>% 

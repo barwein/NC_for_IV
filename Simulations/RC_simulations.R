@@ -19,3 +19,7 @@ RC.testing[,.(prop.F = mean(nc.F.pval <= 0.05),
        prop.GAM = mean(gam_wald <= 0.05),
        prop.GAM.smooth.cntrls = mean(gam_wald.smooth.cntrl <= 0.05)),
     by = c("n","nc_coef")]
+
+
+# Save results
+write.csv(RC.testing, "Simulations/Testing_RC_1000iter.csv", row.names = FALSE)

@@ -14,6 +14,8 @@ library(sandwich)
 library(stringr)
 library(mgcv)
 library(kableExtra)
+library(lmtest)
+
 
 source("Aux_functions/Estimation_Functions.R")
 
@@ -204,7 +206,6 @@ wald.pval <- ifelse(wald.pval<0.01,"<0.01",round(wald.pval,3))
 
 # Ramsey's test
 
-library(lmtest)
 
 # Y ~ IV + NCI + C
 basic.lm <- lm(formula = full.formula.iv.adjusted, data = Nunn.df)
@@ -288,6 +289,6 @@ results.df <- t(rbind(c(bonf.pval, f.pval, wald.pval , GAM.wald.pval, GAM.anova.
 rownames(results.df) <- c("Bonf.","F-test","Wald (CL robust)","GAM (Wald)","GAM (Anova)")
 colnames(results.df) <- c("No IV adj.","With IV adj.")
 
-kable(results.df, format = "latex", booktabs = T)
+kable(results.df, format = "simple", booktabs = T)
 
 

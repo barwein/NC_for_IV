@@ -12,6 +12,10 @@ library(ggplot2)
 library(ggpubr)
 library(dplyr)
 library(data.table)
+library(stringr)
+library(readr)
+library(ivreg)
+
 
 #  Deming analysis --------------------------------------------------------------
 
@@ -61,8 +65,6 @@ summary(lm.psuedo.outcome.iv.lot.VA)
 
 # Save NC names -----------------------------------------------------------
 
-library(stringr)
-library(readr)
 
 nc_names_dt <- data.table(NC = names(NC))
 
@@ -223,7 +225,6 @@ LATE_Lottery <- OLS_Lottery$coefficients[1]
 LATE_Lottery.s.e. <- sqrt(OLS_Lottery$cov.scaled[1,1])
 
 
-library(ivreg)
 formla.lott_va <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
                          " | ", "enrolled", 
                          " | ", "lott_VA")

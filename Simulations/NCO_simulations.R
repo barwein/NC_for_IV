@@ -23,6 +23,8 @@ linear.dgp <- multiple_iterations_different_setups(n_iter = 10e2,
                                                     cntrl_observed = TRUE,
                                                     nonlinear_weight = 0)
 
+
+
 # Nonlinear DGP (truncated parabolic) simulations
 set.seed(52062)
 nonlinear.dgp <- multiple_iterations_different_setups(n_iter = 10e2,
@@ -37,4 +39,9 @@ nonlinear.dgp <- multiple_iterations_different_setups(n_iter = 10e2,
                                                     nc_cntrls_coef = rep(0,5),
                                                     cntrl_observed = TRUE,
                                                     nonlinear_weight = 1)
+
+# Combine results
+sim_results <- rbindlist(list(linear.dgp,nonlinear.dgp))
+write.csv(sim_results, "Simulations/Sim_results_linear_non_linear_DGP.csv", row.names = FALSE)
+
 

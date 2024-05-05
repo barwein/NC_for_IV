@@ -10,21 +10,12 @@ source("Data_analysis/ADH/ADH_Init.R")
 library(ggplot2)
 library(data.table)
 library(kableExtra)
-library(foreach)
-library(doParallel)
 library(ivreg)
 library(sandwich)
 library(stargazer)
+library(lmtest)
+library(stringr)
 
-
-# Register parallel engine ------------------------------------------------
-# 
-# cores = detectCores()/2
-# cl = makeCluster(cores)
-# registerDoParallel(cl)
-# print(paste("is par registered? ",getDoParRegistered()))
-# print(paste("numer of cores,",getDoParWorkers()))
-# 
 
 # Read data and define variables ------------------------------------------------------------
 
@@ -283,7 +274,6 @@ replication_df <- as.data.table(workfile_china_raw_pre)[yr==1970,]
 replicate_2sls <- ivreg("d_sh_empl_mfg ~ d_tradeusch_pw_future | d_tradeotch_pw_lag_future", 
                         data = replication_df,
                         weights = replication_df$timepwt48)
-summary(replicate_2sls, vcov = sand)
 c_se <- sqrt(diag(vcovCL(replicate_2sls, cluster = replication_df$statefip)))[2]
 
 t_stat <- coef(replicate_2sls)[2] / c_se
@@ -333,35 +323,9 @@ corr_plot <- ggplot(data = data_for_corplot_abs,
                              "Resdiualized by controls (spec. 6) using linear regression. Correlation in absolute values.") +
                     theme_minimal()
 
-# Table 3 replications -----------------------------------------------------------
-
-table3_rep <- replicate_table_3(workfile_china,
-                                col_2_controls_old,
-                                col_3_controls_old,
-                                col_4_controls_old,
-                                col_5_controls_old,
-                                col_6_controls_old,
-                                G,
-                                N)
-
-stargazer(list(table3_rep$col2_reg, table3_rep$col3_reg, table3_rep$col4_reg,
-                       table3_rep$col5_reg, table3_rep$col6_reg),
-            se = list(table3_rep$col2_se, table3_rep$col3_se, table3_rep$col4_se,
-                      table3_rep$col5_se, table3_rep$col6_se),
-            title = "Autor et al. Table 3 replication",
-            type = "latex",
-            digits = 3,
-            dep.var.labels=sprintf("Col %s",seq(2,6)),
-           omit = c("t2",col_3_controls_old[3:10],"(Intercept)","Constant"),
-          no.space = TRUE
-          )
-
-
-
 
 # Save NC names -----------------------------------------------------------
 
-library(stringr)
 
 nc_names_dt <- data.table(NC = names(NCs))
 
@@ -383,14 +347,13 @@ str_to_categ <- function(strg){
 
 nc_names_dt[,category := sapply(nc_names_dt$NC,function(x){str_to_categ(x)})]
 
-
+write.csv(nc_names_dt, "Data_analysis/ADH/NC_names_description.csv", row.names = FALSE)
 
 # Ramsey RESET ------------------------------------------------------------
 
 
 # Ramsey's test
 
-library(lmtest)
 
 NC.names <- names(NCs)
 IV.name <- "instrument2000"
