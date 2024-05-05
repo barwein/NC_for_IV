@@ -25,7 +25,13 @@ The code consists of two main parts:
 
 The data analyses, or applications, can run in a feasible runtime on a personal compute (~1 hour). The simulation study is more intensive and can take more than 24 hours to run it.
 
-To obtain all the results run the `main.R' file.
+To obtain all the results run the *main.R* file. The code will replicate all the output files (csv, figures, and tables). 
+
+
+
+
+
+
 
 
 
