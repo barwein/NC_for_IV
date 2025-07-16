@@ -118,7 +118,7 @@ variables_to_remove= c("testz2003", "VA","lottery_FE",ivs)
 
 IVs <- data_reduced[,.SD,.SDcols = ivs]
 controls <- data_reduced[,.SD,.SDcols = relevant_cols]
-NC <- select(data_reduced,-one_of(c(variables_to_remove,relevant_cols)))
+NC <- dplyr::select(data_reduced,-one_of(c(variables_to_remove,relevant_cols)))
 
 
 # Get residualized outcome on controls (using lottery_FE)

@@ -65,18 +65,22 @@ workfile_china <- workfile_china_raw  %>%
 # 1990 only (delta, change of any sort)
 china_1990 <- workfile_china %>%
   filter(yr == 1990) %>%
-  select(-c("l_tradeusch_pw", "l_tradeotch_pw",
+  dplyr::select(-c("l_tradeusch_pw", "l_tradeotch_pw",
+            "czone", "yr", "t2", "city"),
             # "exposure1990", "instrument1990", "exposure2000",  
             # "czone", "yr", "t2", "statefip", "city"), 
-            "czone", "yr", "t2", "city"),
             # "czone", "yr",  "city"),
-         -starts_with("d"), -starts_with("relchg"), -starts_with("lnchg")) #Table 3 (pg. 2137)
+         -starts_with("d"),
+         -starts_with("relchg"),
+         -starts_with("lnchg")) #Table 3 (pg. 2137)
 
 
 # Add 1980,1970 past outcomes
 
-china_1990$outcome1980 <- c(unlist(workfile_china_raw_pre %>% filter(yr==1980) %>% select("d_sh_empl_mfg")))
-china_1990$outcome1970 <- c(unlist(workfile_china_raw_pre %>% filter(yr==1970) %>% select("d_sh_empl_mfg")))
+china_1990$outcome1980 <- c(unlist(workfile_china_raw_pre %>% filter(yr==1980) %>% 
+                                     dplyr::select("d_sh_empl_mfg")))
+china_1990$outcome1970 <- c(unlist(workfile_china_raw_pre %>% filter(yr==1970) %>% 
+                                     dplyr::select("d_sh_empl_mfg")))
 
 # assertthat::are_equal(ncol(workfile_china) , 197)
 assertthat::are_equal(nrow(workfile_china) , 1444)
@@ -217,7 +221,8 @@ all_controls_old <- col_6_controls_old[2:length(col_6_controls_old)]
 
 # Data set with only 1990 data with only the negative control used in the
 # article - the outcome in 2000
-china_1990_only_org_nc <- china_1990 %>% select(c(col_6_controls[2:length(col_6_controls)], "timepwt48", "instrument2000", "outcome1990"))
+china_1990_only_org_nc <- china_1990 %>% 
+  dplyr::select(c(col_6_controls[2:length(col_6_controls)], "timepwt48", "instrument2000", "outcome1990"))
 
 assertthat::are_equal(ncol(china_1990_only_org_nc) , 17)
 assertthat::are_equal(nrow(china_1990_only_org_nc) , 722)

@@ -35,7 +35,7 @@ control6 <- china_1990[,col_6_controls[2:length(col_6_controls)]]
 
 
 # NC is all variables outside outcome, instrument, exposures and controls
-NCs <- select(china_1990,-one_of(c(variables_to_remove,all_controls,all_controls_old)))
+NCs <- dplyr::select(china_1990,-one_of(c(variables_to_remove,all_controls,all_controls_old)))
 
 NCs.lagged.outcomes <- data.frame(nc=NCs[,c("outcome1970")])
 

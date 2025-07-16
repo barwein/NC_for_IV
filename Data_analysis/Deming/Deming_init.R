@@ -213,7 +213,7 @@ school_F_test <- function(data, iv_names,
   
   IV <- data[,iv_names]
   controls <- data[,controls_names]
-  NC <- select(data,-one_of(c(variables_to_remove,controls_names)))
+  NC <- dplyr::select(data,-one_of(c(variables_to_remove,controls_names)))
   
   # Residualize if user chooses
   
@@ -333,7 +333,7 @@ school_bonf <- function(data,
   
   IV <- data[,iv_names]
   controls <- data[,controls_names]
-  NC <- select(data,-one_of(c(variables_to_remove,controls_names)))
+  NC <- dplyr::select(data,-one_of(c(variables_to_remove,controls_names)))
   
   # Residualize if user chooses
   
@@ -408,7 +408,7 @@ school_GAM <- function(data,
   Z <- data[,iv_names]
   controls <- data[,c(controls_names)]
   FE <- data[,c("lottery_FE")]
-  NC <- select(data,-one_of(c(variables_to_remove,controls_names)))
+  NC <- dplyr::select(data,-one_of(c(variables_to_remove,controls_names)))
   
   binary.iv <- length(unique(Z)) < 3
 
