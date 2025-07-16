@@ -12,8 +12,8 @@ Running the master script `main.R` (after restoring the R environment—see Sect
 
 | Stage                                | Approx. runtime | Output location         |
 | ------------------------------------ | --------------- | ----------------------- |
-|  Simulations (Sections 3–4 of paper) |  ≈ 24 h         | `results/simulations/`  |
-|  Applications (Sections 5–6)         |  ≈ 1 h          | `results/applications/` |
+|  Simulations (Sections 3–4 of paper) |  ≈ 24 h         | `Simulations/`          |
+|  Applications (Sections 5–6)         |  ≈ 1 h          | `Data_analysis/`        |
 
 The simulations evaluate negative‑control (NCO) falsification tests under a variety of data‑generating processes, while the applications replicate the following published studies:
 
