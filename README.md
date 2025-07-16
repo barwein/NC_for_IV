@@ -15,7 +15,8 @@ Running the master script `main.R` (after restoring the R environment—see Sect
 |  Simulations (Sections 3–4 of paper) |  ≈ 24 h         | `Simulations/`          |
 |  Applications (Sections 5–6)         |  ≈ 1 h          | `Data_analysis/`        |
 
-The simulations evaluate negative‑control (NCO) falsification tests under a variety of data‑generating processes, while the applications replicate the following published studies:
+The simulations evaluate negative‑control falsification tests under a variety of data‑generating processes,
+while the data-applications replicate and extend the following published studies:
 
 1. Autor, Dorn & Hanson (2013) — “The China Syndrome: Local Labor Market Effects of Import Competition in the United States.”
 2. Deming (2014) — “Using School Choice Lotteries to Test Measures of School Effectiveness.”.
