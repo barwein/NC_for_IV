@@ -49,86 +49,86 @@ cluster.robust <- china_1990$statefip
 # Run regressions ---------------------------------------------------------
 
 # Control 2
-
-set.seed(2)
-cntrl2_run <- single_china_run(Z = IV,
-                              NC = NCs,
-                              cntrls = as.data.frame(control2),
-                              z_resid = "no",
-                              nc_resid = "no",
-                              c_weight = china_weights,
-                              cluster.robust = cluster.robust)
-
-cntrl2_run.NC.lagged.outcomes <- single_china_run(Z = IV,
-                                                  NC = NCs.lagged.outcomes,
-                                                  cntrls = as.data.frame(control2),
-                                                  z_resid = "no",
-                                                  nc_resid = "no",
-                                                  c_weight = china_weights,
-                                                  cluster.robust = cluster.robust)
+# 
+# set.seed(2)
+# cntrl2_run <- single_china_run(Z = IV,
+#                               NC = NCs,
+#                               cntrls = as.data.frame(control2),
+#                               z_resid = "no",
+#                               nc_resid = "no",
+#                               c_weight = china_weights,
+#                               cluster.robust = cluster.robust)
+# 
+# cntrl2_run.NC.lagged.outcomes <- single_china_run(Z = IV,
+#                                                   NC = NCs.lagged.outcomes,
+#                                                   cntrls = as.data.frame(control2),
+#                                                   z_resid = "no",
+#                                                   nc_resid = "no",
+#                                                   c_weight = china_weights,
+#                                                   cluster.robust = cluster.robust)
 
 # Control 3
 
-set.seed(3)
-cntrl3_run <- single_china_run(Z = IV,
-                              NC = NCs,
-                              cntrls = as.data.frame(control3),
-                              z_resid = "no",
-                              nc_resid = "no",
-                              # c_weight = NULL)
-                              c_weight = china_weights,
-                              cluster.robust = cluster.robust)
-
-cntrl3_run.NC.lagged.outcomes <- single_china_run(Z = IV,
-                                                  NC = NCs.lagged.outcomes,
-                                                  cntrls = as.data.frame(control3),
-                                                  z_resid = "no",
-                                                  nc_resid = "no",
-                                                  # c_weight = NULL)
-                                                  c_weight = china_weights,
-                                                  cluster.robust = cluster.robust)
+# set.seed(3)
+# cntrl3_run <- single_china_run(Z = IV,
+#                               NC = NCs,
+#                               cntrls = as.data.frame(control3),
+#                               z_resid = "no",
+#                               nc_resid = "no",
+#                               # c_weight = NULL)
+#                               c_weight = china_weights,
+#                               cluster.robust = cluster.robust)
+# 
+# cntrl3_run.NC.lagged.outcomes <- single_china_run(Z = IV,
+#                                                   NC = NCs.lagged.outcomes,
+#                                                   cntrls = as.data.frame(control3),
+#                                                   z_resid = "no",
+#                                                   nc_resid = "no",
+#                                                   # c_weight = NULL)
+#                                                   c_weight = china_weights,
+#                                                   cluster.robust = cluster.robust)
 
 # Control 4
 
-set.seed(4)
-cntrl4_run <- single_china_run(Z = IV,
-                              NC = NCs,
-                              cntrls = as.data.frame(control4),
-                              z_resid = "no",
-                              nc_resid = "no",
-                              # c_weight = NULL)
-                              c_weight = china_weights,
-                              cluster.robust = cluster.robust)
-
-cntrl4_run.NC.lagged.outcomes <- single_china_run(Z = IV,
-                              NC = NCs.lagged.outcomes,
-                              cntrls = as.data.frame(control4),
-                              z_resid = "no",
-                              nc_resid = "no",
-                              # c_weight = NULL)
-                              c_weight = china_weights,
-                              cluster.robust = cluster.robust)
+# set.seed(4)
+# cntrl4_run <- single_china_run(Z = IV,
+#                               NC = NCs,
+#                               cntrls = as.data.frame(control4),
+#                               z_resid = "no",
+#                               nc_resid = "no",
+#                               # c_weight = NULL)
+#                               c_weight = china_weights,
+#                               cluster.robust = cluster.robust)
+# 
+# cntrl4_run.NC.lagged.outcomes <- single_china_run(Z = IV,
+#                               NC = NCs.lagged.outcomes,
+#                               cntrls = as.data.frame(control4),
+#                               z_resid = "no",
+#                               nc_resid = "no",
+#                               # c_weight = NULL)
+#                               c_weight = china_weights,
+#                               cluster.robust = cluster.robust)
 
 # Control 5
 
-set.seed(5)
-cntrl5_run <- single_china_run(Z = IV,
-                              NC = NCs,
-                              cntrls = as.data.frame(control5),
-                              z_resid = "no",
-                              nc_resid = "no",
-                              # c_weight = NULL)
-                              c_weight = china_weights,
-                              cluster.robust = cluster.robust)
-
-cntrl5_run.NC.lagged.outcomes <- single_china_run(Z = IV,
-                              NC = NCs.lagged.outcomes,
-                              cntrls = as.data.frame(control5),
-                              z_resid = "no",
-                              nc_resid = "no",
-                              # c_weight = NULL)
-                              c_weight = china_weights,
-                              cluster.robust = cluster.robust)
+# set.seed(5)
+# cntrl5_run <- single_china_run(Z = IV,
+#                               NC = NCs,
+#                               cntrls = as.data.frame(control5),
+#                               z_resid = "no",
+#                               nc_resid = "no",
+#                               # c_weight = NULL)
+#                               c_weight = china_weights,
+#                               cluster.robust = cluster.robust)
+# 
+# cntrl5_run.NC.lagged.outcomes <- single_china_run(Z = IV,
+#                               NC = NCs.lagged.outcomes,
+#                               cntrls = as.data.frame(control5),
+#                               z_resid = "no",
+#                               nc_resid = "no",
+#                               # c_weight = NULL)
+#                               c_weight = china_weights,
+#                               cluster.robust = cluster.robust)
 
 # Control 6
 
@@ -154,61 +154,79 @@ cntrl6_run.NC.lagged.outcomes <- single_china_run(Z = IV,
 # Combine results
 
 
-combined_f_test <- c(cntrl2_run$f_pval,
-                        cntrl3_run$f_pval,
-                        cntrl4_run$f_pval,
-                        cntrl5_run$f_pval,
-                        cntrl6_run$f_pval)
+combined_f_test <- c(
+                      # cntrl2_run$f_pval,
+                      # cntrl3_run$f_pval,
+                      # cntrl4_run$f_pval,
+                      # cntrl5_run$f_pval,
+                      cntrl6_run$f_pval
+                      )
 
-combined_bonf <- c(cntrl2_run$bonf_pval,
-                        cntrl3_run$bonf_pval,
-                        cntrl4_run$bonf_pval,
-                        cntrl5_run$bonf_pval,
-                        cntrl6_run$bonf_pval)
+combined_bonf <- c(
+                    # cntrl2_run$bonf_pval,
+                    # cntrl3_run$bonf_pval,
+                    # cntrl4_run$bonf_pval,
+                    # cntrl5_run$bonf_pval,
+                    cntrl6_run$bonf_pval
+                    )
 
-combined_wald <- c(cntrl2_run$wald_pval,
-                        cntrl3_run$wald_pval,
-                        cntrl4_run$wald_pval,
-                        cntrl5_run$wald_pval,
-                        cntrl6_run$wald_pval)
+combined_wald <- c(
+                        # cntrl2_run$wald_pval,
+                        # cntrl3_run$wald_pval,
+                        # cntrl4_run$wald_pval,
+                        # cntrl5_run$wald_pval,
+                        cntrl6_run$wald_pval
+                        )
 
-combined_gam <- c(cntrl2_run$gam_pval,
-                        cntrl3_run$gam_pval,
-                        cntrl4_run$gam_pval,
-                        cntrl5_run$gam_pval,
-                        cntrl6_run$gam_pval)
+combined_gam <- c(
+                  # cntrl2_run$gam_pval,
+                  # cntrl3_run$gam_pval,
+                  # cntrl4_run$gam_pval,
+                  # cntrl5_run$gam_pval,
+                  cntrl6_run$gam_pval
+                  )
 
-combined_gam_smooth <- c(cntrl2_run$gam_pval_smooth_c,
-                        cntrl3_run$gam_pval_smooth_c,
-                        cntrl4_run$gam_pval_smooth_c,
-                        cntrl5_run$gam_pval_smooth_c,
-                        cntrl6_run$gam_pval_smooth_c)
+combined_gam_smooth <- c(
+                        # cntrl2_run$gam_pval_smooth_c,
+                        # cntrl3_run$gam_pval_smooth_c,
+                        # cntrl4_run$gam_pval_smooth_c,
+                        # cntrl5_run$gam_pval_smooth_c,
+                        cntrl6_run$gam_pval_smooth_c
+                        )
 
 
 
-combined_f_test.lagged.outcomes <- c(cntrl2_run.NC.lagged.outcomes$f_pval,
-                                      cntrl3_run.NC.lagged.outcomes$f_pval,
-                                      cntrl4_run.NC.lagged.outcomes$f_pval,
-                                      cntrl5_run.NC.lagged.outcomes$f_pval,
-                                      cntrl6_run.NC.lagged.outcomes$f_pval)
+combined_f_test.lagged.outcomes <- c(
+                                      # cntrl2_run.NC.lagged.outcomes$f_pval,
+                                      # cntrl3_run.NC.lagged.outcomes$f_pval,
+                                      # cntrl4_run.NC.lagged.outcomes$f_pval,
+                                      # cntrl5_run.NC.lagged.outcomes$f_pval,
+                                      cntrl6_run.NC.lagged.outcomes$f_pval
+                                      )
 
-combined_bonf.lagged.outcomes <- c(cntrl2_run.NC.lagged.outcomes$bonf_pval,
-                                    cntrl3_run.NC.lagged.outcomes$bonf_pval,
-                                    cntrl4_run.NC.lagged.outcomes$bonf_pval,
-                                    cntrl5_run.NC.lagged.outcomes$bonf_pval,
-                                    cntrl6_run.NC.lagged.outcomes$bonf_pval)
+combined_bonf.lagged.outcomes <- c(
+                                    # cntrl2_run.NC.lagged.outcomes$bonf_pval,
+                                    # cntrl3_run.NC.lagged.outcomes$bonf_pval,
+                                    # cntrl4_run.NC.lagged.outcomes$bonf_pval,
+                                    # cntrl5_run.NC.lagged.outcomes$bonf_pval,
+                                    cntrl6_run.NC.lagged.outcomes$bonf_pval
+                                    )
 
-combined_gam.lagged.outcomes <- c(cntrl2_run.NC.lagged.outcomes$gam_pval,
-                                    cntrl3_run.NC.lagged.outcomes$gam_pval,
-                                    cntrl4_run.NC.lagged.outcomes$gam_pval,
-                                    cntrl5_run.NC.lagged.outcomes$gam_pval,
-                                    cntrl6_run.NC.lagged.outcomes$gam_pval)
+combined_gam.lagged.outcomes <- c(
+                                    # cntrl2_run.NC.lagged.outcomes$gam_pval,
+                                    # cntrl3_run.NC.lagged.outcomes$gam_pval,
+                                    # cntrl4_run.NC.lagged.outcomes$gam_pval,
+                                    # cntrl5_run.NC.lagged.outcomes$gam_pval,
+                                    cntrl6_run.NC.lagged.outcomes$gam_pval
+                                    )
 
-combined_gam.lagged.outcomes.sm <- c(cntrl2_run.NC.lagged.outcomes$gam_pval_smooth_c,
-                                    cntrl3_run.NC.lagged.outcomes$gam_pval_smooth_c,
-                                    cntrl4_run.NC.lagged.outcomes$gam_pval_smooth_c,
-                                    cntrl5_run.NC.lagged.outcomes$gam_pval_smooth_c,
-                                    cntrl6_run.NC.lagged.outcomes$gam_pval_smooth_c)
+combined_gam.lagged.outcomes.sm <- c(
+                                    # cntrl2_run.NC.lagged.outcomes$gam_pval_smooth_c,
+                                    # cntrl3_run.NC.lagged.outcomes$gam_pval_smooth_c,
+                                    # cntrl4_run.NC.lagged.outcomes$gam_pval_smooth_c,
+                                    # cntrl5_run.NC.lagged.outcomes$gam_pval_smooth_c,
+                                    cntrl6_run.NC.lagged.outcomes$gam_pval_smooth_c
+                                    )
 
 
 # Convert results to tables -----------------------------------------------
@@ -231,8 +249,10 @@ results_ <- as.data.frame(cbind(method_names,
                                    gam_tbl, 
                                    gam_smooth_tbl)))
 
-colnames(results_) <- c("Method",sprintf("Control%s",seq(2,6)))
+# colnames(results_) <- c("Method",sprintf("Control%s",seq(2,6)))
+colnames(results_) <- c("Method","P-value")
 
+print("ADH analysis results (multiple NCOs):")
 kable(results_,
       row.names = FALSE, 
       format= "rst",
@@ -252,21 +272,25 @@ bonf_tbl.lo <- ifelse(combined_bonf.lagged.outcomes<0.01, "<0.01",
 gam_tbl.lo <- ifelse(combined_gam.lagged.outcomes<0.01, "<0.01",
                       as.character(round(combined_gam.lagged.outcomes,3)))
 
-method_names <- c(rep(c("F-test","Bonf."),times = 1))
+# method_names <- c(rep(c("F-test","Bonf."),times = 1))
+method_names <- "single_linear_model"
 
-results_lo <- as.data.frame(cbind(method_names,
-                             rbind(f_tbl.lo,
-                                   bonf_tbl.lo)))
+# results_lo <- as.data.frame(cbind(method_names,
+#                              rbind(f_tbl.lo,
+#                                    bonf_tbl.lo)))
+results_lo <- as.data.frame(cbind(method_names,bonf_tbl.lo))
 
-colnames(results_lo) <- c("Method",sprintf("Control%s",seq(2,6)))
+# colnames(results_lo) <- c("Method",sprintf("Control%s",seq(2,6)))
+colnames(results_lo) <- c("Method","P-value")
 
+print("ADH analysis results (single NCO -- lagged outcome):")
 kable(results_lo,
       row.names = FALSE, 
-      format= "latex",
+      format= "rst",
       booktabs = TRUE)
 
 
-# Replicate Table 2 column 4 ----------------------------------------------
+# Replicate ADH Table 2 column 4 ----------------------------------------------
 
 replication_df <- as.data.table(workfile_china_raw_pre)[yr==1970,]
 
@@ -278,7 +302,8 @@ c_se <- sqrt(diag(vcovCL(replicate_2sls, cluster = replication_df$statefip)))[2]
 
 t_stat <- coef(replicate_2sls)[2] / c_se
 pv <- 2*pt(t_stat, df = nrow(replication_df)-2, lower.tail = F)
-pv
+print(paste("ADH p-value for falsfication test with single linear model without controls:",
+            round(pv,3)))
 
 # Corr-corr plot ----------------------------------------------------------
 

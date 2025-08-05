@@ -39,13 +39,13 @@ names(deming_results_with_VA) <-  c("lottery", "lott_VA")
 
 deming_results_with_VA$method <- c("F","bonf","GAM","GAM (smooth cntrl)")
 
-
+print("Deming analysis results")
 kbl(deming_results_with_VA, 
     row.names = FALSE,
-    format = "simple")
+    format = "rst")
 
 
-# Naive psuedo-outcome NCO
+# Naive psuedo-outcome NCO (lagged test scores)
 
 NCO <- school_data[,"testz2002"]
 iv.lot <- school_data[,"lottery"]
@@ -193,48 +193,48 @@ for (i in seq(2)){
 
 # Compute 2SLS estimate with ``lott_VA" and ``Lottery" IVs
 
-
-covariates.2sls <- c("math_2002_imp", "read_2002_imp", "math_2002_imp_sq", "math_2002_imp_cub",
-                      "read_2002_imp_sq", "read_2002_imp_cub", "math_2002_miss", "read_2002_miss",
-                     "ch1_mod2mix_all_test", "ch2_mod2mix_all_test", "ch3_mod2mix_all_test",
-                     "hm_mod2mix_all_test")
-
-
-# Lott_VA
-formula_lott_VA <- get_formula_for_2sls(outcome = "testz2003",
-                                                   col_factors = covariates.2sls,
-                                                   fixed = "lottery_FE", 
-                                                   endogen = "enrolled",
-                                                   iv = "lott_VA")
-
-OLS_lott_VA <- feols(fml = formula_lott_VA, data = school_data, vcov = "cluster")
-
-LATE_lott_VA <- OLS_lott_VA$coefficients[1]
-LATE_lott_VA.s.e. <- sqrt(OLS_lott_VA$cov.scaled[1,1])
-
-# Lottery
-formula_Lottery <- get_formula_for_2sls(outcome = "testz2003",
-                                                   col_factors = covariates.2sls,
-                                                   fixed = "lottery_FE", 
-                                                   endogen = "enrolled",
-                                                   iv = "lottery")
-
-OLS_Lottery <- feols(fml = formula_Lottery, data = school_data, vcov = "cluster")
-
-LATE_Lottery <- OLS_Lottery$coefficients[1]
-LATE_Lottery.s.e. <- sqrt(OLS_Lottery$cov.scaled[1,1])
-
-
-formla.lott_va <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
-                         " | ", "enrolled", 
-                         " | ", "lott_VA")
-ivv.lott.va <- ivreg(formula = formla.lott_va, data = school_data)
-summary(ivv.lott.va)
-
-formla.lottery <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
-                         " | ", "enrolled", 
-                         " | ", "lottery")
-ivv.lottery <- ivreg(formula = formla.lottery, data = school_data)
-summary(ivv.lottery)
-
+# 
+# covariates.2sls <- c("math_2002_imp", "read_2002_imp", "math_2002_imp_sq", "math_2002_imp_cub",
+#                       "read_2002_imp_sq", "read_2002_imp_cub", "math_2002_miss", "read_2002_miss",
+#                      "ch1_mod2mix_all_test", "ch2_mod2mix_all_test", "ch3_mod2mix_all_test",
+#                      "hm_mod2mix_all_test")
+# 
+# 
+# # Lott_VA
+# formula_lott_VA <- get_formula_for_2sls(outcome = "testz2003",
+#                                                    col_factors = covariates.2sls,
+#                                                    fixed = "lottery_FE", 
+#                                                    endogen = "enrolled",
+#                                                    iv = "lott_VA")
+# 
+# OLS_lott_VA <- feols(fml = formula_lott_VA, data = school_data, vcov = "cluster")
+# 
+# LATE_lott_VA <- OLS_lott_VA$coefficients[1]
+# LATE_lott_VA.s.e. <- sqrt(OLS_lott_VA$cov.scaled[1,1])
+# 
+# # Lottery
+# formula_Lottery <- get_formula_for_2sls(outcome = "testz2003",
+#                                                    col_factors = covariates.2sls,
+#                                                    fixed = "lottery_FE", 
+#                                                    endogen = "enrolled",
+#                                                    iv = "lottery")
+# 
+# OLS_Lottery <- feols(fml = formula_Lottery, data = school_data, vcov = "cluster")
+# 
+# LATE_Lottery <- OLS_Lottery$coefficients[1]
+# LATE_Lottery.s.e. <- sqrt(OLS_Lottery$cov.scaled[1,1])
+# 
+# 
+# formla.lott_va <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
+#                          " | ", "enrolled", 
+#                          " | ", "lott_VA")
+# ivv.lott.va <- ivreg(formula = formla.lott_va, data = school_data)
+# summary(ivv.lott.va)
+# 
+# formla.lottery <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
+#                          " | ", "enrolled", 
+#                          " | ", "lottery")
+# ivv.lottery <- ivreg(formula = formla.lottery, data = school_data)
+# summary(ivv.lottery)
+# 
 

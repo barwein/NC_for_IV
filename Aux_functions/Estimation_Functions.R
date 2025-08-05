@@ -452,7 +452,7 @@ wald.robust.function <- function(Z,
                       wald.res
                     },
                     error = function(cond){
-                      message("Error - Wald didn't converge, doing manual Wald test")
+                      message("... doing manual Wald test")
                       beta.hat <- wald.coef[seq(1+q+1,N.non.na.coef)]
                       non.na.coef <- which(!is.na(beta.hat))
                       beta.hat <- beta.hat[non.na.coef]

@@ -1,11 +1,7 @@
 ###
 # ``Negative Control Falsification Tests for Instrumental Variable Designs" 
-# Run the data analysis and replicate the simulation study
+# Run the data analysis
 ###
-
-### IMPORTANT NOTE ###
-# The simulation study was performed in a power-cluster
-# The provided code may take a while to run -- please consider before running the entire file!
 
 
 # Required libraries ------------------------------------------------------
@@ -37,6 +33,10 @@ require(MASS)
 require(stargazer)
 require(ggplot2)
 require(readr)
+require(assertthat)
+require(Matrix)
+require(janitor)
+require(xtable)
 
 
 # Applications (data analyses) -----------------------------------------------------------
@@ -60,19 +60,23 @@ source("Data_analysis/NunnQian/NunnQian.R")
 
 # Simulations -------------------------------------------------------------
 
+### IMPORTANT NOTE ###
+# The simulation study was performed in a power-cluster
+# The provided code may take a while to run -- please consider before running the entire file!
+
 ### May take a while! ###
 
 # NCO and NCE simulations
 
-source("Simulations/NCO_simulations.R")
+# source("Simulations/NCO_simulations.R")
 
 # Rich-covariates (RC) simulations
 
-source("Simulations/RC_simulations.R")
+# source("Simulations/RC_simulations.R")
 
 # Generate figures for the results
 
-source("Simulations/simulation_plots.R")
+# source("Simulations/simulation_plots.R")
 
 
 

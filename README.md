@@ -2,7 +2,7 @@
 
 Replication package for the article **“Negative Control Falsification Tests for Instrumental Variable Designs.”**
 The archive reproduces every figure, table and numerical result reported in the paper,
-spanning both Monte‑Carlo simulations and four empirical applications.
+spanning the four empirical applications and the literature review of current use of falsification tests for IV in Economics.
 
 ---
 
@@ -12,11 +12,9 @@ Running the master script `main.R` (after restoring the R environment—see Sect
 
 | Stage                                | Approx. runtime | Output location         |
 | ------------------------------------ | --------------- | ----------------------- |
-|  Simulations (Sections 3–4 of paper) |  ≈ 24 h         | `Simulations/`          |
 |  Applications (Sections 5–6)         |  ≈ 1 h          | `Data_analysis/`        |
 
-The simulations evaluate negative‑control falsification tests under a variety of data‑generating processes,
-while the data-applications replicate and extend the following published studies:
+The data-applications replicate and extend the following published studies:
 
 1. Autor, Dorn & Hanson (2013) — “The China Syndrome: Local Labor Market Effects of Import Competition in the United States.”
 2. Deming (2014) — “Using School Choice Lotteries to Test Measures of School Effectiveness.”.
@@ -55,12 +53,13 @@ The raw data remain under the licenses imposed by their original depositors; use
 
 ```
 ├── Aux_functions/            # Helper functions called by multiple scripts
+├── current_practice_Table 2/ # Literature review of current practice of falsfication tests in IV designs
 ├── Data_analysis/
 │   ├── ADH/                  # China‑Shock application
 │   ├── Deming/               # School‑lottery application
 │   ├── AshrafGalor/          # Out‑of‑Africa application
 │   └── NunnQian/             # Food‑aid application
-├── Simulations/              # Monte‑Carlo study
+├── Simulations/              # Monte‑Carlo study (not reported in the main analysis)
 ├── results/                  # Tables & figures created by code
 ├── renv.lock                 # R package manifest (for renv)
 ├── main.R                    # Master driver script
@@ -103,8 +102,6 @@ Scripts are fully autonomous; no manual editing of paths is required.
 
 | Paper result              | Script(s)                                                       | 
 | ------------------------- | --------------------------------------------------------------- | 
-| Simulation (run)          | `Simulations/NCO_simulations.R`, `Simulations/RC_simulations.R` | 
-| Simulations (plots)       | `Simulations/simulations_plots.R`                               | 
 | Table 3 (ADH)             | `Data_analysis/ADH/ADH_Run.R`                                   | 
 | Table 3 (Deming)          | `Data_analysis/Deming/Deming_Run.R`                             | 
 | Table 4 (Ashraf & Galor)  | `Data_analysis/AshrafGalor/AshrafGalor.R`                       | 
