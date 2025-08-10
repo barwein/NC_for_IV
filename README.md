@@ -122,5 +122,4 @@ Paths are relative so no manual editing of paths is required.
 
 ### Contact
 
-For questions about this replication archive, please email Oren Danieli, the corresponding author at mailto:orendanieli@tauex.tau.ac.il.
-
+For questions about this replication archive, please email Oren Danieli, the corresponding author at \url{orendanieli@tauex.tau.ac.il}.
