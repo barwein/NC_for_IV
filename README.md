@@ -2,19 +2,14 @@
 
 Replication package for the article **“Negative Control Falsification Tests for Instrumental Variable Designs.”**
 The archive reproduces every figure, table and numerical result reported in the paper,
-spanning the four empirical applications and the literature review of current use of falsification tests for IV in Economics.
+including analyses of four empirical applications and a summary of the literature review of current use of falsification tests for IV in Economics.
 
 ---
 
 ## 1  Overview
 
-Running the master script `main.R` (after restoring the R environment—see Section 5) executes **all** elements of the workflow in the proper order:
-
-| Stage                                | Approx. runtime | Output location         |
-| ------------------------------------ | --------------- | ----------------------- |
-|  Applications (Sections 5–6)         |  ≈ 1 h          | `Data_analysis/`        |
-
-The data-applications replicate and extend the following published studies:
+Running the master script `main.R` (after restoring the R environment—see Section 5) executes all code required to reproduce the paper’s exhibits.
+The analysis uses replication data and code from the following published studies:
 
 1. Autor, Dorn & Hanson (2013) — “The China Syndrome: Local Labor Market Effects of Import Competition in the United States.”
 2. Deming (2014) — “Using School Choice Lotteries to Test Measures of School Effectiveness.”.
@@ -27,7 +22,7 @@ The data-applications replicate and extend the following published studies:
 
 ### 2.1  Statement about Rights
 
-\* All data used were obtained from open‑access replication archives at the AEA Data & Code Repository (openICPSR). No proprietary or confidential data are redistributed here.
+All data used were obtained from open‑access replication archives at the AEA Data & Code Repository (openICPSR). No proprietary or confidential data are redistributed here.
 
 ### 2.2  License for Data
 
@@ -36,7 +31,7 @@ The raw data remain under the licenses imposed by their original depositors; use
 
 ### 2.3  Summary of Availability
 
-\* Raw data: **publicly available**. See *openICPSR* links in Section 7 of this file.
+Raw data: **publicly available**. See *openICPSR* links in Section 7 of this file.
 
 ### 2.4  Details on Each Data Source
 
@@ -47,19 +42,22 @@ The raw data remain under the licenses imposed by their original depositors; use
 | Ashraf & Galor (2013) — *The “Out of Africa” Hypothesis …*                               | ICPSR bundle              | Yes             | 10.3886/E112588V1 ([openicpsr.org](https://www.openicpsr.org/openicpsr/project/112588/version/V1/view)) |
 | Nunn & Qian (2014) — *US Food Aid and Civil Conflict*                                    | ICPSR bundle              | Yes             | 10.3886/E112825V1 ([openicpsr.org](https://www.openicpsr.org/openicpsr/project/112825/version/V1/view)) |
 
+
+The literature survey underlying Table 2 is available in `Literature_survey/NC_literature_survey.csv`.
+
+
 ---
 
 ## 3  Included Files and Directory Structure
 
 ```
 ├── Aux_functions/            # Helper functions called by multiple scripts
-├── current_practice_Table 2/ # Literature review of current practice of falsfication tests in IV designs
+├── Literature_survey/        # Survey of current literature conducted by the authors
 ├── Data_analysis/
-│   ├── ADH/                  # China‑Shock application
-│   ├── Deming/               # School‑lottery application
-│   ├── AshrafGalor/          # Out‑of‑Africa application
-│   └── NunnQian/             # Food‑aid application
-├── Simulations/              # Monte‑Carlo study (not reported in the main analysis)
+│   ├── ADH/                  # Autor, Dorn, Hanson
+│   ├── Deming/               # Deming
+│   ├── AshrafGalor/          # Ashraf and Galor
+│   └── NunnQian/             # Nunn and Qian
 ├── results/                  # Tables & figures created by code
 ├── renv.lock                 # R package manifest (for renv)
 ├── main.R                    # Master driver script
@@ -71,16 +69,17 @@ The raw data remain under the licenses imposed by their original depositors; use
 ## 4  Computational Requirements
 
 - **Software**
-  - **R 4.2.2** (x86\_64‑w64‑mingw32) with packages listed below (a complete list is encoded in `renv.lock`): `data.table`, `sandwich`, `ivreg`, `mvtnorm`, `foreach`, `parallel`, `dplyr`, `lfe`, `mgcv`, `caret`, `systemfit`, `aod`, `tidyverse`, `ggpubr`, `latex2exp`, `gridExtra`, `haven`, `fixest`, `mltools`, `stringr`, `kableExtra`, `lmtest`, `MASS`, `stargazer`, `ggplot2`, `readr` ([github.com](https://github.com/barwein/NC_for_IV))
+  - **R 4.4.3** (x86\_64‑w64‑mingw32) with packages listed below (a complete list is encoded in `renv.lock`): `data.table`, `sandwich`, `ivreg`, `mvtnorm`, `foreach`, `parallel`, `dplyr`, `lfe`, `mgcv`, `caret`, `systemfit`, `aod`, `tidyverse`, `ggpubr`, `latex2exp`, `gridExtra`, `haven`, `fixest`, `mltools`, `stringr`, `kableExtra`, `lmtest`, `MASS`, `stargazer`, `ggplot2`, `readr` ([github.com](https://github.com/barwein/NC_for_IV))
 - **Hardware**  ≥ 4 GB RAM, tested on 8‑core CPU (parallel backend optional).
-- **Runtime**  ≈ 1 h for applications; ≈ 24 h for full simulation suite.
-- **Randomness**  All simulation scripts call `set.seed(...)` for reproducibility.
+- **Runtime**  ≈ 1 h 
 
-To recreate the exact R environment, run:
+To recreate the exact R package environment, run:
 
 ```bash
 Rscript -e "install.packages('renv'); renv::restore()"
 ```
+
+Or manually install all packages required in the code files.
 
 ---
 
@@ -94,18 +93,20 @@ Rscript -e "install.packages('renv'); renv::restore()"
    ```
 4. **Inspect outputs** under `results/`—sub‑directories mirror the paper structure. Tables are saved as CSV/LaTeX, figures as PDF/PNG.
 
-Scripts are fully autonomous; no manual editing of paths is required.
+Paths are relative so no manual editing of paths is required.
 
 ---
 
 ## 6  Program–Output Cross‑Walk
 
-| Paper result              | Script(s)                                                       | 
+| Paper exhibit             | Script(s)                                                       | 
 | ------------------------- | --------------------------------------------------------------- | 
-| Table 3 (ADH)             | `Data_analysis/ADH/ADH_Run.R`                                   | 
-| Table 3 (Deming)          | `Data_analysis/Deming/Deming_Run.R`                             | 
-| Table 4 (Ashraf & Galor)  | `Data_analysis/AshrafGalor/AshrafGalor.R`                       | 
-| Table 4 (Nunn & Qian)     | `Data_analysis/NunnQian/NunnQian.R`                             | 
+| Table 2                   | `Literature_survey/NC_literature_survey_summary.R`              | 
+| Table 4 (ADH)             | `Data_analysis/ADH/ADH_Run.R`                                   | 
+| Table 4 (Deming)          | `Data_analysis/Deming/Deming_Run.R`                             | 
+| Table 5 (Ashraf & Galor)  | `Data_analysis/AshrafGalor/AshrafGalor.R`                       | 
+| Table 5 (Nunn & Qian)     | `Data_analysis/NunnQian/NunnQian.R`                             | 
+| Figure 3 (Deming)         | `Data_analysis/Deming/Deming_Run.R`                             | 
 
 ---
 
@@ -121,5 +122,5 @@ Scripts are fully autonomous; no manual editing of paths is required.
 
 ### Contact
 
-For questions about this replication archive, please open an issue on the GitHub repository or email the corresponding author (see paper for contact details).
+For questions about this replication archive, please email Oren Danieli, the corresponding author at \mailto{orendanieli@tauex.tau.ac.il}.
 
