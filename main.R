@@ -57,38 +57,8 @@ source("Data_analysis/AshrafGalor/AshrafGalor.R")
 
 source("Data_analysis/NunnQian/NunnQian.R")
 
-
-# Simulations -------------------------------------------------------------
-
-### IMPORTANT NOTE ###
-# The simulation study was performed in a power-cluster
-# The provided code may take a while to run -- please consider before running the entire file!
-
-### May take a while! ###
-
-# NCO and NCE simulations
-
-# source("Simulations/NCO_simulations.R")
-
-# Rich-covariates (RC) simulations
-
-# source("Simulations/RC_simulations.R")
-
-# Generate figures for the results
-
-# source("Simulations/simulation_plots.R")
-
-
-
-
-
-
-
-
-
-
-
-
+# Summarize literature
+source("Literature_survey/NC_literature_survey_summary.R")
 
 
 

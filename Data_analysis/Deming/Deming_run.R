@@ -63,32 +63,6 @@ lm.psuedo.outcome.iv.lot.VA <- lm(formula.lot.VA, school_data)
 summary(lm.psuedo.outcome.iv.lot.VA)
 
 
-# Save NC names -----------------------------------------------------------
-
-
-nc_names_dt <- data.table(NC = names(NC))
-
-nc_names_dt[,type := ifelse(str_detect(pattern = "math_",string = NC),
-                            "Math",
-                            ifelse(str_detect(pattern = "read_",string = NC),
-                                   "Read",
-                                   "Past Outcome"))]
-
-nc_names_dt[,year := parse_number(NC)]
-
-nc_names_dt[,tranformation := ifelse(str_detect(string = NC, pattern = "_imp_sq"),
-                                     "Squared",
-                                     ifelse(str_detect(string = NC, pattern = "_imp_cub"),
-                                            "Cubic",
-                                            ifelse(str_detect(string = NC, pattern = "_miss"),
-                                                   "Missing indicator", 
-                                                   "None")))]
-
-write.csv(x = nc_names_dt,
-          file = "Data_analysis/Deming/deming_nc_description.csv",
-          row.names = F)
-
-
 
 # Cor-cor plots --------------------------------------------------------------
 
@@ -139,6 +113,31 @@ resid_nc <- resid_outcome_nc$NC
 corr_nc_outcome <- abs(cor(resid_nc, resid_outcome))
 
 
+# Save NC names
+
+nc_names_dt <- data.table(NC = names(NC))
+
+nc_names_dt[,type := ifelse(str_detect(pattern = "math_",string = NC),
+                            "Math",
+                            ifelse(str_detect(pattern = "read_",string = NC),
+                                   "Read",
+                                   "Past Outcome"))]
+
+nc_names_dt[,year := parse_number(NC)]
+
+nc_names_dt[,tranformation := ifelse(str_detect(string = NC, pattern = "_imp_sq"),
+                                     "Squared",
+                                     ifelse(str_detect(string = NC, pattern = "_imp_cub"),
+                                            "Cubic",
+                                            ifelse(str_detect(string = NC, pattern = "_miss"),
+                                                   "Missing indicator", 
+                                                   "None")))]
+
+write.csv(x = nc_names_dt,
+          file = "Data_analysis/Deming/deming_nc_description.csv",
+          row.names = F)
+
+
 deming_nc_description <- read.csv("Data_analysis/Deming/deming_nc_description.csv")
 
 for (i in seq(2)){
@@ -187,54 +186,4 @@ for (i in seq(2)){
 }
 
 
-
-
-# 2SLS estimates ----------------------------------------------------------
-
-# Compute 2SLS estimate with ``lott_VA" and ``Lottery" IVs
-
-# 
-# covariates.2sls <- c("math_2002_imp", "read_2002_imp", "math_2002_imp_sq", "math_2002_imp_cub",
-#                       "read_2002_imp_sq", "read_2002_imp_cub", "math_2002_miss", "read_2002_miss",
-#                      "ch1_mod2mix_all_test", "ch2_mod2mix_all_test", "ch3_mod2mix_all_test",
-#                      "hm_mod2mix_all_test")
-# 
-# 
-# # Lott_VA
-# formula_lott_VA <- get_formula_for_2sls(outcome = "testz2003",
-#                                                    col_factors = covariates.2sls,
-#                                                    fixed = "lottery_FE", 
-#                                                    endogen = "enrolled",
-#                                                    iv = "lott_VA")
-# 
-# OLS_lott_VA <- feols(fml = formula_lott_VA, data = school_data, vcov = "cluster")
-# 
-# LATE_lott_VA <- OLS_lott_VA$coefficients[1]
-# LATE_lott_VA.s.e. <- sqrt(OLS_lott_VA$cov.scaled[1,1])
-# 
-# # Lottery
-# formula_Lottery <- get_formula_for_2sls(outcome = "testz2003",
-#                                                    col_factors = covariates.2sls,
-#                                                    fixed = "lottery_FE", 
-#                                                    endogen = "enrolled",
-#                                                    iv = "lottery")
-# 
-# OLS_Lottery <- feols(fml = formula_Lottery, data = school_data, vcov = "cluster")
-# 
-# LATE_Lottery <- OLS_Lottery$coefficients[1]
-# LATE_Lottery.s.e. <- sqrt(OLS_Lottery$cov.scaled[1,1])
-# 
-# 
-# formla.lott_va <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
-#                          " | ", "enrolled", 
-#                          " | ", "lott_VA")
-# ivv.lott.va <- ivreg(formula = formla.lott_va, data = school_data)
-# summary(ivv.lott.va)
-# 
-# formla.lottery <- paste0("testz2003 ~ ",paste0(c(covariates.2sls,"lottery_FE"), collapse =  " + "),
-#                          " | ", "enrolled", 
-#                          " | ", "lottery")
-# ivv.lottery <- ivreg(formula = formla.lottery, data = school_data)
-# summary(ivv.lottery)
-# 
 
