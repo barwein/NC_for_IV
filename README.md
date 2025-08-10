@@ -58,7 +58,6 @@ The literature survey underlying Table 2 is available in `Literature_survey/NC_l
 │   ├── Deming/               # Deming
 │   ├── AshrafGalor/          # Ashraf and Galor
 │   └── NunnQian/             # Nunn and Qian
-├── results/                  # Tables & figures created by code
 ├── renv.lock                 # R package manifest (for renv)
 ├── main.R                    # Master driver script
 └── README.md                 # This document
@@ -91,7 +90,7 @@ Or manually install all packages required in the code files.
    ```bash
    Rscript main.R
    ```
-4. **Inspect outputs** under `results/`—sub‑directories mirror the paper structure. Tables are saved as CSV/LaTeX, figures as PDF/PNG.
+4. **Inspect outputs** under relevant the folders. Tables are saved as CSV/LaTeX, figures as PDF/PNG.
 
 Paths are relative so no manual editing of paths is required.
 
