@@ -115,75 +115,97 @@ corr_nc_outcome <- abs(cor(resid_nc, resid_outcome))
 
 # Save NC names
 
-nc_names_dt <- data.table(NC = names(NC))
+nc_names_dt <- data.table(variable_name = names(NC))
 
-nc_names_dt[,type := ifelse(str_detect(pattern = "math_",string = NC),
+nc_names_dt[,variable_categ := ifelse(str_detect(pattern = "math_",string = variable_name),
                             "Math",
-                            ifelse(str_detect(pattern = "read_",string = NC),
+                            ifelse(str_detect(pattern = "read_",string = variable_name),
                                    "Read",
                                    "Past Outcome"))]
 
-nc_names_dt[,year := parse_number(NC)]
+nc_names_dt[,variable_year := as.character(parse_number(variable_name))]
+nc_names_dt[34:37, variable_year := c("1st Choice", 
+                                       "2nd Choice",
+                                       "3rd Choice",
+                                       "Neighborhood")]
 
-nc_names_dt[,tranformation := ifelse(str_detect(string = NC, pattern = "_imp_sq"),
+nc_names_dt[,variable_transformation := ifelse(str_detect(string = variable_name, pattern = "_imp_sq"),
                                      "Squared",
-                                     ifelse(str_detect(string = NC, pattern = "_imp_cub"),
+                                     ifelse(str_detect(string = variable_name, pattern = "_imp_cub"),
                                             "Cubic",
-                                            ifelse(str_detect(string = NC, pattern = "_miss"),
+                                            ifelse(str_detect(string = variable_name, pattern = "_miss"),
                                                    "Missing indicator", 
                                                    "None")))]
 
+# Add outcome~NCO corr
+nc_names_dt[,outcome_nc_corr := corr_nc_outcome]
+
+# Add lottery~NCO corr
+resid_data_lottery <- get_resids_data(Z=unlist(as.data.frame(IVs[,1])),
+                              NC = as.data.frame(NC),
+                              cntrls = as.data.frame(controls),
+                              nc_resid = "no",
+                              z_resid = "fe",
+                              fixed_e_var = data_reduced[,"lottery_FE"])$Z
+corr_nc_iv_lottery <- abs(cor(resid_nc, resid_data_lottery))
+nc_names_dt[,lottery_nc_corr := corr_nc_iv_lottery]
+
+# Add lott_VA~NCO corr 
+resid_data_lott_VA <- get_resids_data(Z=unlist(as.data.frame(IVs[,2])),
+                              NC = as.data.frame(NC),
+                              cntrls = as.data.frame(controls),
+                              nc_resid = "no",
+                              z_resid = "fe",
+                              fixed_e_var = data_reduced[,"lottery_FE"])$Z
+corr_nc_iv_lott_VA <- abs(cor(resid_nc, resid_data_lott_VA))
+nc_names_dt[,lott_va_nc_corr := corr_nc_iv_lott_VA]
+
 write.csv(x = nc_names_dt,
-          file = "Data_analysis/Deming/deming_nc_description.csv",
+          file = "Data_analysis/Deming/deming_cor_plot_data_relabeled.csv",
           row.names = F)
 
 
-deming_nc_description <- read.csv("Data_analysis/Deming/deming_nc_description.csv")
-
-for (i in seq(2)){
-  
-  resid_data <- get_resids_data(Z=unlist(as.data.frame(IVs[,..i])),
-                                NC = as.data.frame(NC),
-                                cntrls = as.data.frame(controls),
-                                nc_resid = "no",
-                                z_resid = "fe",
-                                fixed_e_var = data_reduced[,"lottery_FE"])$Z
-  
-  # corr_nc_iv <- cor(resid_nc, resid_data)
-  corr_nc_iv <- abs(cor(resid_nc, resid_data))
-  
-  cur_df <- data.frame(outcome_nc_cor = c(corr_nc_outcome),
-                       iv_nc_cor = c(corr_nc_iv),
-                       variable_name = rownames(corr_nc_iv),
-                       variable_categ = deming_nc_description$type,
-                       variable_year = deming_nc_description$year,
-                       variable_transformation = deming_nc_description$tranformation)
-  
-  corr_plot <- ggplot(data = cur_df,
-                     aes(x=outcome_nc_cor,
-                         y=iv_nc_cor,
-                         label = variable_categ,
-                         color = variable_categ)) + 
-                    geom_point(aes(shape = factor(variable_year)), size = 4, alpha = 0.7) +
-                    geom_text(size =4, hjust = 0, nudge_x = 0.002, angle = 20, check_overlap = F, show.legend = F) +
-                    scale_x_continuous(expand = expansion(add = c(0.01, 0.03))) +
-                    scale_y_continuous(expand = expansion(add = c(0.01,0.03))) +
-                    scale_shape_manual(values = 1:9) +
-                    labs(
-                      x = "Outcome ~ NC Absolute Correlation",
-                      y = "IV ~ NC Absolute Correlation", 
-                      shape = "",
-                      title = paste0("Cor-cor plot for IV=",ivs[i]),
-                      subtitle = "Resdiualized by controls using lottery_FE as fixed-effect") + 
-                    guides(color ="none") +
-                    theme_bw(base_size = 22)
-  
-  ggsave(paste0("Data_analysis/Deming/corplot_",ivs[i],".jpeg"),
-         corr_plot,
-         device = "jpeg",
-         width = 11,
-         height = 8)
-}
+deming_cor_df <- read.csv("Data_analysis/Deming/deming_cor_plot_data_relabeled.csv")
 
 
+# GGplot of corr-corr plot
+theme_set(theme_bw(base_size = 21))
 
+
+deming_cor_df <- deming_cor_df %>% 
+  mutate(variable_label = ifelse(variable_categ == "VA", 
+                                 variable_year,
+                                 paste(variable_categ, variable_year)
+  ),
+  variable_year = ifelse(!variable_year %in% c("1998","1999","2000","2001","2002"), 
+                         "Choice School VA",
+                         paste(variable_year, "Test Scores"))
+  )
+
+lott_va_corr_plot <- deming_cor_df %>%
+  mutate(variable_label = ifelse(variable_label == "Neighborhood ", "Neighborhood School", "")) %>%
+  ggplot(
+    aes(x=outcome_nc_corr,
+        y=lott_va_nc_corr,
+        label = variable_label)) + 
+  geom_point(aes(shape = factor(variable_year)), size = 5, alpha = 0.9) +
+  geom_text(size = 5, hjust = 0, nudge_x = 0.005, angle = 0, check_overlap = F, show.legend = F) +
+  scale_x_continuous(expand = expansion(add = c(0.01, 0.03))) +
+  scale_y_continuous(expand = expansion(add = c(0.01,0.03)),
+                     limits = c(0, .6)) +
+  scale_shape_manual(values = 1:9) + theme(panel.grid = element_blank()) +
+  annotate("text", x = 0.042, y = 0.545, 
+         label = "Neighborhood School",
+         size = 5) +
+  labs(
+    x = "Absolute Correlation between NCO and Outcome",
+    y = "Absolute Correlation between NCO and IV",
+    shape = "",
+  ) + 
+  guides(color ="none")
+lott_va_corr_plot
+
+ggsave("Data_analysis/Deming/corplot_lott_va.pdf",
+       lott_va_corr_plot,
+       width = 11,
+       height = 8)
