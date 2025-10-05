@@ -40,9 +40,9 @@ names(deming_results_with_VA) <-  c("lottery", "lott_VA")
 deming_results_with_VA$method <- c("F","bonf","GAM","GAM (smooth cntrl)")
 
 print("Deming analysis results")
-kbl(deming_results_with_VA, 
+print(kbl(deming_results_with_VA, 
     row.names = FALSE,
-    format = "rst")
+    format = "rst"))
 
 
 # Naive psuedo-outcome NCO (lagged test scores)

@@ -131,10 +131,10 @@ results_ <- as.data.frame(cbind(method_names,
 colnames(results_) <- c("Method","P-value")
 
 print("ADH analysis results (multiple NCOs):")
-kable(results_,
+print(kable(results_,
       row.names = FALSE, 
       format= "rst",
-      booktabs = TRUE)
+      booktabs = TRUE))
 
 
 # Lagged outcomes only analysis
@@ -158,10 +158,10 @@ results_lo <- as.data.frame(cbind(method_names,bonf_tbl.lo))
 colnames(results_lo) <- c("Method","P-value")
 
 print("ADH analysis results (single NCO -- lagged outcome):")
-kable(results_lo,
+print(kable(results_lo,
       row.names = FALSE, 
       format= "rst",
-      booktabs = TRUE)
+      booktabs = TRUE))
 
 
 # Replicate ADH Table 2 column 4 ----------------------------------------------
@@ -274,27 +274,6 @@ ramsey.test.no.nci <- resettest(basic.lm.no.nci, type = "fitted", data = china_1
 ramsey.test.no.nci
 
 # IV ~ C
-
-# Cntrl3
-re.formula.iv.on.c3 <- as.formula(paste0(IV.name, "~",
-                                       paste0(names(control3),collapse = " + ")))
-basic.lm.iv.on.c3 <- lm(formula = re.formula.iv.on.c3, data = china_1990, weights = china_weights)
-ramsey.test.iv.on.c3 <- resettest(basic.lm.iv.on.c3, type = "fitted", data = china_weights)
-ramsey.test.iv.on.c3
-
-# Cntrl4
-re.formula.iv.on.c4 <- as.formula(paste0(IV.name, "~",
-                                       paste0(names(control4),collapse = " + ")))
-basic.lm.iv.on.c4 <- lm(formula = re.formula.iv.on.c4, data = china_1990, weights = china_weights)
-ramsey.test.iv.on.c4 <- resettest(basic.lm.iv.on.c4, type = "fitted", data = china_weights)
-ramsey.test.iv.on.c4
-
-# Cntrl5
-re.formula.iv.on.c5 <- as.formula(paste0(IV.name, "~",
-                                       paste0(names(control5),collapse = " + ")))
-basic.lm.iv.on.c5 <- lm(formula = re.formula.iv.on.c5, data = china_1990, weights = china_weights)
-ramsey.test.iv.on.c5 <- resettest(basic.lm.iv.on.c5, type = "fitted", data = china_weights)
-ramsey.test.iv.on.c5
 
 # Cntrl6
 re.formula.iv.on.c <- as.formula(paste0(IV.name, "~",

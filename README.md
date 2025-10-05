@@ -58,7 +58,8 @@ The literature survey underlying Table 2 is available in `Literature_survey/NC_l
 │   ├── Deming/               # Deming
 │   ├── AshrafGalor/          # Ashraf and Galor
 │   └── NunnQian/             # Nunn and Qian
-├── renv.lock                 # R package manifest (for renv)
+├── requirements.txt          # list of all required R packages (with version)
+├── setup_env.R               # Install all required packages
 ├── main.R                    # Master driver script
 └── README.md                 # This document
 ```
@@ -68,17 +69,20 @@ The literature survey underlying Table 2 is available in `Literature_survey/NC_l
 ## 4  Computational Requirements
 
 - **Software**
-  - **R 4.4.3** (x86\_64‑w64‑mingw32) with packages listed below (a complete list is encoded in `renv.lock`): `data.table`, `sandwich`, `ivreg`, `mvtnorm`, `foreach`, `parallel`, `dplyr`, `lfe`, `mgcv`, `caret`, `systemfit`, `aod`, `tidyverse`, `ggpubr`, `latex2exp`, `gridExtra`, `haven`, `fixest`, `mltools`, `stringr`, `kableExtra`, `lmtest`, `MASS`, `stargazer`, `ggplot2`, `readr` ([github.com](https://github.com/barwein/NC_for_IV))
-- **Hardware**  ≥ 4 GB RAM, tested on 8‑core CPU (parallel backend optional).
+  - **R version**: tested on R 4.4.3 (R ≥ 4.4.0 recommended)
+  - **R packages**: pinned in [`requirements.txt`] with `pkg==x.y.z` lines for reproducibility
+  - **Operating System**: tested on Windows 11 and MacOS 15.7.1
+  - **Hardware**  ≥ 4 GB RAM, tested on 8‑core CPU (parallel backend optional).
 - **Runtime**  ≈ 1 h 
 
 To recreate the exact R package environment, run:
 
-```bash
-Rscript -e "install.packages('renv'); renv::restore()"
-```
-
-Or manually install all packages required in the code files.
+1. Open the project in **RStudio**.
+2. Open `main.R`
+3. Run the lines `source("setup_env.R")` to install all required packages.
+4. When prompted, choose:
+   - **Strict** – installs the **exact pinned versions** from `requirements.txt`.
+   - **Relaxed** – installs the **latest CRAN versions**.
 
 ---
 

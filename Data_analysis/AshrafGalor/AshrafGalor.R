@@ -227,11 +227,11 @@ results.casted <- results.casted[,c(1,6,7,4,5,2,3)]
 
 results.casted$nciv.names <- c("Addis Ababa","London","Mexico","Tokyo")
 
-kable(results.casted[,c(8,seq(2,7))], format = "rst",
+print(kable(results.casted[,c(8,seq(2,7))], format = "rst",
       booktabs = T,
       col.names = c("",rep(c("FALSE","TRUE"),3))) %>% 
   add_header_above(c(" "=1, "IV Adj."=2,"IV Adj."=2,"IV Adj."=2)) %>% 
-  add_header_above(c(" "=1, "Seperate (lin, quad)"=2,"Wald"=2,"GAM"=2)) 
+  add_header_above(c(" "=1, "Seperate (lin, quad)"=2,"Wald"=2,"GAM"=2)))
 
 
 

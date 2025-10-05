@@ -289,8 +289,8 @@ results.df <- t(rbind(c(bonf.pval, f.pval, wald.pval , GAM.wald.pval, GAM.anova.
 rownames(results.df) <- c("Bonf.","F-test","Wald (CL robust)","GAM (Wald)","GAM (Anova)")
 colnames(results.df) <- c("No IV adj.","With IV adj.")
 
-kable(results.df,
+print(kable(results.df,
       format = "rst",
-      booktabs = T)
+      booktabs = T))
 
 
