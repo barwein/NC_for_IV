@@ -89,11 +89,11 @@ To recreate the exact R package environment, run:
 ## 5  How to Run the Replication
 
 1. **Clone** this repository (or download the ZIP) to a local folder with write permission.
-2. **Restore R environment** using `renv` (see command above).
-3. **Execute** the master script:
+2. **Execute** the master script:
    ```bash
    Rscript main.R
    ```
+3. **Install relevant R packages** using `source("setup_env.R")` (see command above).
 4. **Inspect outputs** under relevant the folders. Tables are saved as CSV/LaTeX, figures as PDF/PNG.
 
 Paths are relative so no manual editing of paths is required.
