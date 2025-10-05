@@ -66,7 +66,7 @@ The literature survey underlying Table 2 is available in `Literature_survey/NC_l
 
 ---
 
-## 4  Computational Requirements
+## 4  Computational Requirements and Version Control
 
 - **Software**
   - **R version**: tested on R 4.4.3 (R ≥ 4.4.0 recommended)
