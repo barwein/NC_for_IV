@@ -124,7 +124,7 @@ If you prefer the terminal:
   ```
 2. Run the container
 
-```
+```bash
 docker run --rm -v "$(pwd):/project" replication-package
 ```
 
