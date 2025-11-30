@@ -122,13 +122,13 @@ If you prefer the terminal:
 1. **Build the image:**
    ```bash
    docker build -t replication-package .
-  ```
+   ```
   
 2. **Run the container:**
 
-```bash
-docker run --rm -v "$(pwd):/project" replication-package
-```
+  ```bash
+  docker run --rm -v "$(pwd):/project" replication-package
+  ```
 
 ---
 
