@@ -118,11 +118,13 @@ We provide a helper script to manage the Docker process entirely from RStudio:
 
 #### Option 2: Command Line
 If you prefer the terminal:
+
 1. **Build the image:**
    ```bash
    docker build -t replication-package .
   ```
-2. Run the container
+  
+2. **Run the container:**
 
 ```bash
 docker run --rm -v "$(pwd):/project" replication-package
