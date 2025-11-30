@@ -69,11 +69,12 @@ The literature survey underlying Table 2 is available in `Literature_survey/NC_l
 ## 4  Computational Requirements and Version Control
 
 - **Software**
-  - **R version**: tested on R 4.4.3 (R ≥ 4.4.0 recommended)
+  - **R version**: tested on R 4.5.1 (R ≥ 4.5.0 recommended)
   - **R packages**: pinned in [`requirements.txt`] with `pkg==x.y.z` lines for reproducibility
+  - **Container**: A `Dockerfile` is provided to replicate the exact Linux-based computational environment (Recommended).
   - **Operating System**: tested on Windows 11 and MacOS 15.7.1
   - **Hardware**  ≥ 4 GB RAM, tested on 8‑core CPU (parallel backend optional).
-- **Runtime**  ≈ 1 h 
+  - **Runtime**  ≈ 1 h 
 
 To recreate the exact R package environment, run:
 
@@ -85,18 +86,47 @@ To recreate the exact R package environment, run:
    - **Relaxed** – installs the **latest CRAN versions**.
 
 ---
-
 ## 5  How to Run the Replication
 
-1. **Clone** this repository (or download the ZIP) to a local folder with write permission.
-2. **Execute** the master script:
-   ```bash
-   Rscript main.R
-   ```
-3. **Install relevant R packages** using `source("setup_env.R")` (see command above).
-4. **Inspect outputs** under relevant the folders. Tables are saved as CSV/LaTeX, figures as PDF/PNG.
+You may choose between two methods. **Method A** runs on your local R installation. **Method B** uses Docker to guarantee an exact environment match (fixing OS-specific package version issues).
 
-Paths are relative so no manual editing of paths is required.
+### Method A: Local Execution (Standard)
+
+1. Open the project in **RStudio**.
+2. Open `main.R`.
+3. Run the line `source("setup_env.R")` to install packages.
+   * **Interactive Mode:** You will be prompted to choose **Strict** (exact versions) or **Relaxed** (latest CRAN versions).
+   * **Non-Interactive (Script) Mode:** The system defaults to **Strict** automatically.
+4. Execute `source("main.R")`.
+5. Outputs (Tables/Figures) are saved in their respective `Data_analysis` subfolders.
+
+### Method B: Docker Execution (Guaranteed Reproducibility)
+
+Use this method if you encounter "version not available" errors or OS-specific compilation issues. This runs the analysis in a Linux container with R 4.4.3 and exact package versions.
+
+**Prerequisite:** Ensure [Docker Desktop](https://www.docker.com/products/docker-desktop/) is installed and running.
+
+#### Option 1: Automated R Script (Recommended)
+We provide a helper script to manage the Docker process entirely from RStudio:
+1. Open `verify_reproducibility.R`.
+2. Click **Source** (or run `source("verify_reproducibility.R")`).
+3. This script will:
+   * Build the Docker image.
+   * Run the analysis.
+   * Save a log file (`replication_output.log`) proving success.
+   * Save all generated Tables/Figures to your local folder.
+
+#### Option 2: Command Line
+If you prefer the terminal:
+1. **Build the image:**
+   ```bash
+   docker build -t replication-package .
+  ```
+2. Run the container
+
+```
+docker run --rm -v "$(pwd):/project" replication-package
+```
 
 ---
 

@@ -23,8 +23,9 @@ pick_mode <- function() {
     if (ans == 2) return("relaxed")
     return("strict")
   } else {
-    return("relaxed")
-  }
+    message("Non-interactive session detected: Defaulting to STRICT mode.")
+    return("strict")
+    }
 }
 
 read_requirements <- function(path = "requirements.txt") {

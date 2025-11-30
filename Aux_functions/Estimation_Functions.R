@@ -15,7 +15,7 @@ library(systemfit)
 library(sandwich)
 library(aod)
 
-source("Aux_functions/Data_Generator.R")
+# source("Aux_functions/Data_Generator.R")
 
 
 # Functions ---------------------------------------------------------------
