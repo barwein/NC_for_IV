@@ -60,6 +60,8 @@ The literature survey underlying Table 2 is available in `Literature_survey/NC_l
 │   └── NunnQian/             # Nunn and Qian
 ├── requirements.txt          # list of all required R packages (with version)
 ├── setup_env.R               # Install all required packages
+├── verify_reproducibility.R  # Reproduce via docker container
+├── replication_output.log    # Full replication log created from "verify_reproducibility.R" run
 ├── main.R                    # Master driver script
 └── README.md                 # This document
 ```
