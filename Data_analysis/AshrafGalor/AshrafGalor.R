@@ -27,6 +27,9 @@ AG.df <- as.data.table(AG.df)
 
 AG.df <- AG.df[cleanpd1500==1,]
 
+print("--- Running Ashraf & Galor analysis ---")
+print(paste("Sample size is:", nrow(AG.df)))
+
 # Define variables/controls --------------------------------------------------------
 
 outcome.name <- "ln_pd1500"
@@ -41,7 +44,6 @@ NCIV.tokyo <- c("mdist_tokyo")
 NCIV.mexico <- c("mdist_mexico")
 
 NCIVs <- c(NCIV.addis, NCIV.london, NCIV.tokyo, NCIV.mexico)
-
 
 # LM formulas --------------------------------------------------------------
 
@@ -229,9 +231,16 @@ results.casted$nciv.names <- c("Addis Ababa","London","Mexico","Tokyo")
 
 print(kable(results.casted[,c(8,seq(2,7))], format = "rst",
       booktabs = T,
-      col.names = c("",rep(c("FALSE","TRUE"),3))) %>% 
-  add_header_above(c(" "=1, "IV Adj."=2,"IV Adj."=2,"IV Adj."=2)) %>% 
-  add_header_above(c(" "=1, "Seperate (lin, quad)"=2,"Wald"=2,"GAM"=2)))
+      col.names = c("", "Seperate (lin, quad) & IV adj = FALSE",
+                    "Seperate (lin, quad) & IV adj = TRUE",
+                    "Wald & IV adj = FALSE",
+                    "Wald & IV adj = TRUE",
+                    "GAM & IV adj = FALSE",
+                    "GAM & IV adj = TRUE"))) 
+  #     %>%
+  #     col.names = c("",rep(c("IV adj = FALSE","IV adj = TRUE"),3))) %>% 
+  # add_header_above(c(" "=1, "IV Adj."=2,"IV Adj."=2,"IV Adj."=2)) %>% 
+  # add_header_above(c(" "=1, "Seperate (lin, quad)"=2,"Wald"=2,"GAM"=2)))
 
 
 
@@ -259,6 +268,6 @@ min(bonf.robust.pval.all,1)
 all.wald.stat <- t(coef(lm.all.nciv)[2:7]) %*% ginv(robust.vcov.all[2:7,2:7]) %*% coef(lm.all.nciv)[2:7]
 wald.df <- length(coef(lm.all.nciv)[2:7])
 all.wald.pval <- pchisq(q = all.wald.stat, df = wald.df, lower.tail = FALSE)
-all.wald.pval
+print(paste("p-value of F-test with IV adj:", round(all.wald.pval,4)))
 # Gam not possible due to small sample size
 

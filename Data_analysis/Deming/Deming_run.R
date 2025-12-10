@@ -24,6 +24,8 @@ school_data = deming_data(curr_cms,c("lottery", "lott_VA","new_lott_VA"))
 
 which.is.enrolled <- which(names(school_data) == "enrolled")
 
+print("--- Running Deming analysis ---")
+print(paste("Sample size is:", nrow(school_data)))
 
 # With VA
 
@@ -40,10 +42,18 @@ names(deming_results_with_VA) <-  c("lottery", "lott_VA")
 deming_results_with_VA$method <- c("F","bonf","GAM","GAM (smooth cntrl)")
 
 print("Deming analysis results")
-print(kbl(deming_results_with_VA, 
-    row.names = FALSE,
-    format = "rst"))
+# print(kbl(deming_results_with_VA, 
+#     row.names = FALSE,
+#     format = "rst"))
 
+print(paste("p-value of F-test",
+            deming_results_with_VA$lott_VA[1]))
+
+print(paste("p-value of GAM (linear controls)",
+            deming_results_with_VA$lott_VA[3]))
+
+print(paste("p-value of GAM (nonlinear controls)",
+            deming_results_with_VA$lott_VA[4]))
 
 # Naive psuedo-outcome NCO (lagged test scores)
 
@@ -56,13 +66,14 @@ covars <- school_data[,relevant_cols]
 
 formula.lott <- paste0("testz2002 ~ lottery + ",paste(relevant_cols,collapse = " + "))
 lm.psuedo.outcome.iv.lot <- lm(formula.lott, school_data)
-summary(lm.psuedo.outcome.iv.lot)
+# summary(lm.psuedo.outcome.iv.lot)
 
 formula.lot.VA <- paste0("testz2002 ~ lott_VA + ",paste(relevant_cols,collapse = " + "))
 lm.psuedo.outcome.iv.lot.VA <- lm(formula.lot.VA, school_data)
-summary(lm.psuedo.outcome.iv.lot.VA)
+summ_lot_va <- summary(lm.psuedo.outcome.iv.lot.VA)
 
-
+print(paste("p-value of single NCO linear model:",
+      round(summ_lot_va$coefficients["lott_VA",4],4)))
 
 # Cor-cor plots --------------------------------------------------------------
 

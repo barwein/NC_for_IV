@@ -41,6 +41,8 @@ china_weights <- china_1990$timepwt48
 
 cluster.robust <- china_1990$statefip
 
+print("--- Running ADH analysis ---")
+print(paste("Sample size is:", length(IV)))
 
 
 # Run regressions ---------------------------------------------------------

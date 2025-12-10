@@ -28,6 +28,10 @@ Nunn.df <- as.data.table(Nunn.df)
 
 colnames.nunn <- colnames(Nunn.df)
 
+print("--- Running Nunn & Qian analysis ---")
+print(paste("Sample size is:", nrow(Nunn.df)))
+
+
 # Define variables/controls --------------------------------------------------------
 
 US_controls <-  c("oil_fadum_avg", "US_income_fadum_avg", "US_democ_pres_fadum_avg")
@@ -116,6 +120,9 @@ Nunn.tab5.results <- Nunn.tab5.results[-1,]
 bonf.pval <- min(Nunn.tab5.results[2:11,pval])*length(NCIV.vars)
 bonf.pval <- ifelse(bonf.pval<0.01,"<0.01",round(bonf.pval,3))
 
+print(paste("p-value of Grape Production NCIV (without IV adj):",
+            round(Nunn.tab5.results[IV=="l_USprod_Grapes",pval],4)))
+
 # Replicate Table 5 with control for IV -----------------------------------
 
 Nunn.tab5.iv.adjusted.results <- data.table(IV = NA, beta = NA, robust.se = NA, t.stat = NA, pval = NA)
@@ -131,6 +138,8 @@ Nunn.tab5.iv.adjusted.results <- Nunn.tab5.iv.adjusted.results[-1,]
 bonf.pval.iv.adjusted <- min(Nunn.tab5.iv.adjusted.results[,pval])*length(NCIV.vars)
 bonf.pval.iv.adjusted <- ifelse(bonf.pval.iv.adjusted<0.01,"<0.01",round(bonf.pval.iv.adjusted,3))
 
+print(paste("p-value of Grape Production NCIV (with IV adj):",
+            round(Nunn.tab5.iv.adjusted.results[IV=="l_USprod_Grapes",pval],4)))
 
 # Falsification test using all NCIV together -------------------------------
 
@@ -175,6 +184,8 @@ f.pval <- get.f.pval(full.formula = full.formula,
 f.pval.iv.adj <- ifelse(f.pval.iv.adj<0.01,"<0.01",round(f.pval.iv.adj,3))
 f.pval <- ifelse(f.pval<0.01,"<0.01",round(f.pval,3))
 
+
+print(paste("F-test p-value (with IV adj):",f.pval.iv.adj))
 # Wald test (cluster robust se)
 
 wald.robust.test <- function(full.formula, NC.names){
@@ -289,8 +300,8 @@ results.df <- t(rbind(c(bonf.pval, f.pval, wald.pval , GAM.wald.pval, GAM.anova.
 rownames(results.df) <- c("Bonf.","F-test","Wald (CL robust)","GAM (Wald)","GAM (Anova)")
 colnames(results.df) <- c("No IV adj.","With IV adj.")
 
-print(kable(results.df,
-      format = "rst",
-      booktabs = T))
+# print(kable(results.df,
+#       format = "rst",
+#       booktabs = T))
 
 
