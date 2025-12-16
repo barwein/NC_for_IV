@@ -148,7 +148,7 @@ If you prefer the terminal:
 ---
 
 
-## 9 Random-number generators referenced
+## 7 Random-number generators referenced
 
 The following R scripts use random-number generators via `set.seed()` to ensure reproducibility:
 
