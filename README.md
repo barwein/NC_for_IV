@@ -139,15 +139,23 @@ If you prefer the terminal:
 | Paper exhibit             | Script(s)                                                       | 
 | ------------------------- | --------------------------------------------------------------- | 
 | Table 2                   | `Literature_survey/NC_literature_survey_summary.R`              | 
-| Table 4 (ADH)             | `Data_analysis/ADH/ADH_Run.R`                                   | 
-| Table 4 (Deming)          | `Data_analysis/Deming/Deming_Run.R`                             | 
-| Table 5 (Ashraf & Galor)  | `Data_analysis/AshrafGalor/AshrafGalor.R`                       | 
-| Table 5 (Nunn & Qian)     | `Data_analysis/NunnQian/NunnQian.R`                             | 
-| Figure 3 (Deming)         | `Data_analysis/Deming/Deming_Run.R`                             | 
+| Table 4 (ADH)             | `Data_analysis/ADH/ADH_Run.R` (lines 163-167, 181-183)          | 
+| Table 4 (Deming)          | `Data_analysis/Deming/Deming_Run.R` (lines 49-57, 75-77)        | 
+| Table 5 (Ashraf & Galor)  | `Data_analysis/AshrafGalor/AshrafGalor.R` (lines 232-239, 271)  | 
+| Table 5 (Nunn & Qian)     | `Data_analysis/NunnQian/NunnQian.R` (lines 123-124, 141-142,188)| 
+| Figure 3 (Deming)         | `Data_analysis/Deming/Deming_Run.R` (lines 219-223)             | 
 
 ---
 
-## 7  References
+
+## 9 Random-number generators referenced
+
+The following R scripts use random-number generators via `set.seed()` to ensure reproducibility:
+
+- `Data_analysis/Deming/Deming_Run.R` (line 32)
+- `Data_analysis/ADH/ADH_Run.R` (line 52)
+
+## 8  References
 
 - Autor, D., Dorn, D., & Hanson, G. (2013). “The China Syndrome: Local Labor Market Effects of Import Competition in the United States.” *American Economic Review*. DOI: 10.3886/E112670V1. ([openicpsr.org](https://www.openicpsr.org/openicpsr/project/112670/version/V1/view))
 - Deming, D. (2014). “Using School Choice Lotteries to Test Measures of School Effectiveness.” *American Economic Journal: Applied Economics*. DOI: 10.3886/E112805V1. ([openicpsr.org](https://www.openicpsr.org/openicpsr/project/112805/version/V1/view))
